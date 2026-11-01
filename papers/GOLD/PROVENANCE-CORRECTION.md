@@ -1,0 +1,3 @@
+# Public provenance correction — HGS-GOLD
+
+The canonical PDF is retained byte-for-byte as authorized. Its printed provenance predates the session-level identification and uses the label “ASTRA 6.0 API” with model identity not established. This notice and the updated public TeX identify the contributor responsible for HGS-E1-002 Request #14 as `openai/gpt-6-astra`, based on that request’s trajectory metadata and linked artifact-write event. The correction applies only to E1-002 Request #14; it does not identify other GOLD runs or the auxiliary reviewers. The PDF SHA-256 remains `e1ebf3feb9c93dcc9de712fa98b53e6d106e1533649edd526e33c611336f2e7e`.

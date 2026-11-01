@@ -1,0 +1,1207 @@
+\documentclass[11pt]{amsart}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage[margin=1.1in]{geometry}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+  pdftitle={Extremal coefficients of Pell representation polynomials and integer fibres in the silver ratio},
+  pdfauthor={HYDRA Research Project},
+  pdfsubject={HGS-SILVER full manuscript, pre-submission draft},
+  pdfkeywords={Pell numbers; silver ratio; representation function; extremal coefficients; numeration systems}
+}
+
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposition}[lemma]{Proposition}
+\newtheorem{corollary}[lemma]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[lemma]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[lemma]{Remark}
+\theoremstyle{plain}
+\newtheorem*{thmPETone}{Theorem PET-1}
+\newtheorem*{thmPETtwo}{Theorem PET-2}
+\newtheorem*{thmPETthree}{Theorem PET-3}
+\newtheorem*{thmPETfour}{Theorem PET-4}
+\newtheorem*{thmSTTone}{Theorem STT-1}
+\newtheorem*{thmSTTtwo}{Theorem STT-2}
+\newtheorem*{thmSTTthree}{Theorem STT-3}
+
+\numberwithin{equation}{section}
+\raggedbottom
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\floor}[1]{\lfloor #1\rfloor}
+\newcommand{\argmax}{\operatorname*{argmax}}
+\newcommand{\CC}{\mathsf{C}}
+\newcommand{\OL}{\mathsf{OL}}
+\newcommand{\OR}{\mathsf{OR}}
+\newcommand{\IL}{\mathsf{IL}}
+\newcommand{\IR}{\mathsf{IR}}
+\newcommand{\Fam}{\mathcal{F}}
+\newcommand{\PETone}{\hyperref[thm:pet1]{Theorem~PET-1}}
+\newcommand{\PETtwo}{\hyperref[thm:pet2]{Theorem~PET-2}}
+\newcommand{\PETthree}{\hyperref[thm:pet3]{Theorem~PET-3}}
+\newcommand{\PETfour}{\hyperref[thm:pet4]{Theorem~PET-4}}
+\newcommand{\STTone}{\hyperref[thm:stt1]{Theorem~STT-1}}
+\newcommand{\STTtwo}{\hyperref[thm:stt2]{Theorem~STT-2}}
+\newcommand{\STTthree}{\hyperref[thm:stt3]{Theorem~STT-3}}
+
+\title[Pell representation polynomials and silver-ratio fibres]{Extremal coefficients of Pell representation\\ polynomials and integer fibres in the silver ratio}
+
+\author[HYDRA Research Project]{HYDRA Research Project}
+\thanks{Human-directed, AI-authored mathematical research. The proofs have not undergone independent human mathematical verification.}
+
+\subjclass[2020]{Primary 11B39; Secondary 11A63, 05A15, 05A17}
+\keywords{Pell numbers; silver ratio; representation function; restricted-digit expansions;
+extremal coefficients; numeration systems}
+
+\begin{document}
+
+\begin{abstract}
+Let $P_n$ be the Pell numbers and, for $\ell\ge1$, let $\rho_\ell(n)$ be the coefficient of $x^n$
+in $G_\ell(x)=\prod_{j=2}^{\ell+1}(1+x^{P_j}+x^{2P_j})$, that is, the number of words
+$(d_2,\dots,d_{\ell+1})\in\{0,1,2\}^\ell$ with $\sum_j d_jP_j=n$. We prove that
+$B_\ell=\max_n\rho_\ell(n)=2^{\lfloor(\ell-1)/2\rfloor}$ for every $\ell\ge1$, and we determine the
+set $M_\ell$ of all maximizers for every length. For odd $\ell\ge3$ it consists of the four integers
+$u_\ell,\ u_\ell+2,\ u_\ell+P_{\ell+1},\ u_\ell+P_{\ell+1}+2$ with $u_\ell=(P_{\ell+2}-5)/2$, and
+$M_1=\{0,2,4\}$. For even lengths $|M_2|=9$ and $|M_{2k}|=16k-8$ for $k\ge2$; moreover $M_{2k}$ is
+the union of two explicit six-element cores and four explicit chains of two-element blocks. All
+proofs rest on one structural fact: when two consecutive Pell weights are adjoined, the nine shifted
+copies of the previous coefficient sequence overlap at most two at a time. As an application, let
+$\delta=1+\sqrt2$ and let $\nu_m(t)$ be the number of strings
+$(d_k)_{k=-2m}^{2m}\in\{0,1,2\}^{4m+1}$ with $\sum_kd_k\delta^k=t$. We prove the exact identity
+$\nu_m(t)=\rho_{4m+1}(tP_{2m+2})$ for every integer $t$. Consequently
+$\max_{t\in\mathbb Z}\nu_m(t)=4^m$, attained only at $t=\sum_{j=-m}^{m}\delta^{2j}=P_{2m+1}+P_{2m}$
+when $m\ge1$ and at $t\in\{0,1,2\}$ when $m=0$, and every fibre over $\mathbb Z[\sqrt2]$ in the same
+window contains at most $4^m$ strings. The results and proofs constitute human-directed, AI-authored mathematical research
+and have been checked only by AI-model audits; no human review has taken place, and
+novelty is not established.
+\end{abstract}
+
+\maketitle
+
+%======================================================================
+\section{Introduction and related work}\label{sec:intro}
+%======================================================================
+
+Counting the representations of an integer in a redundant numeration system is a classical problem.
+For sums of distinct Fibonacci numbers the representation function $R(n)$ has been studied in
+detail. Koc\'abov\'a, Mas\'akov\'a and Pelantov\'a~\cite{KMP2005} determine the maximum of $R(n)$
+between consecutive Fibonacci numbers and describe the integers at which it is attained, and
+Stockmeyer~\cite{Stockmeyer2009} proves $R(n)\le\sqrt{n+1}$, with equality exactly at
+$n=F_m^2-1$. The same programme---the maximum of the representation function at a fixed numeration
+length, together with a description of its maximizers---is carried out for the $m$-bonacci systems
+in~\cite{KMP2007}. For expansions in Pisot bases, Grabner and Steiner~\cite{GrabnerSteiner2011}
+study expansions of minimal weight; in the Fibonacci case with digits $\{-1,0,1\}$ they obtain the
+exact maximum $2^{\floor{(k-1)/3}}$ for the number of such expansions of length
+$k$~\cite[Theorem~4.6]{GrabnerSteiner2011}. Edson~\cite{Edson2013} develops methods for computing
+numbers of representations in linear numeration systems.
+
+For the Pell numbers $P_0=0$, $P_1=1$, $P_{n+2}=2P_{n+1}+P_n$, the literature we consulted
+concentrates on \emph{distinguished single representations}. Horadam~\cite{Horadam1994} describes the
+\emph{maximal} (lazy) representation, in which every positive integer is written with the largest
+possible number of Pell summands; the \emph{minimal} (greedy) representation and the recursive
+counting of partitions into Pell parts of \emph{unbounded} multiplicity are treated by Knopfmacher
+and Robbins~\cite{KnopfmacherRobbins2004}; both normalizations appear in~\cite{Horadam1996}. They are
+recalled in Section~\ref{sec:terminology} to separate them from the quantity studied here.
+
+In this paper we study the bounded Pell representation polynomials
+\[
+G_\ell(x)=\prod_{j=2}^{\ell+1}\bigl(1+x^{P_j}+x^{2P_j}\bigr),\qquad \rho_\ell(n)=[x^n]\,G_\ell(x),
+\qquad \ell\ge1,
+\]
+so that $\rho_\ell(n)$ is the number of words $(d_2,\dots,d_{\ell+1})\in\{0,1,2\}^\ell$ with
+$\sum_jd_jP_j=n$. We ask for the maximum coefficient $B_\ell=\max_n\rho_\ell(n)$ and for the set
+$M_\ell=\{n:\rho_\ell(n)=B_\ell\}$ of all maximizers.
+
+\subsection{Main results}
+Our motivation is a question about the silver ratio $\delta=1+\sqrt2$: how many ternary digit strings
+of length $4m+1$, centred at the exponent~$0$, can represent the same integer? Let
+\[
+\nu_m(t)=\#\Bigl\{(d_k)_{k=-2m}^{2m}\in\{0,1,2\}^{4m+1}:\ \sum_kd_k\delta^k=t\Bigr\},\qquad
+N_m=\max_{t\in\Z}\nu_m(t).
+\]
+The results are stated under seven canonical identifiers, which we keep throughout.
+\begin{enumerate}[label=\textbullet,leftmargin=1.6em]
+\item \PETone{} (Section~\ref{sec:pet1}): $B_\ell=2^{\floor{(\ell-1)/2}}$ for every $\ell\ge1$.
+\item \PETtwo{} (Section~\ref{sec:pet2}): for every odd $\ell\ge1$, the complete list of maximizers;
+four integers for $\ell\ge3$, and $M_1=\{0,2,4\}$.
+\item \PETthree{} (Section~\ref{sec:pet3}): $|M_2|=9$ and $|M_{2k}|=16k-8$ for every $k\ge2$; the
+case $k=1$ is exceptional.
+\item \PETfour{} (Section~\ref{sec:pet4}): an explicit description of $M_{2k}$ for every $k\ge1$ as
+the union of two cores and four chains of two-element blocks; the families are pairwise disjoint for
+$k\ge2$, while for $k=1$ the two cores meet in $\{5,7,9\}$.
+\item \STTone{} (Section~\ref{sec:stt1}): $\nu_m(t)=\rho_{4m+1}(tP_{2m+2})$ for all $m\ge0$ and
+$t\in\Z$, by an explicit bijection of words.
+\item \STTtwo{} (Section~\ref{sec:stt2}): $N_m=4^m$ for every $m\ge0$; the maximum is attained only
+at the integer $C_m=\sum_{j=-m}^m\delta^{2j}$ when $m\ge1$, and at $t\in\{0,1,2\}$ when $m=0$.
+\item \STTthree{} (Section~\ref{sec:stt3}): every fibre over $\Z[\sqrt2]$ in the window
+$\{-2m,\dots,2m\}$ contains at most $4^m$ strings.
+\end{enumerate}
+\STTone{} reduces the silver-ratio question exactly to bounded Pell representations, and
+\PETone{} and \PETtwo{} solve that problem. The even-length results \PETthree{} and \PETfour{} are not
+needed for the silver-ratio application; they complete the description of $M_\ell$.
+
+All proofs rest on one structural fact (Lemma~\ref{lem:window}): when the two weights $P_{\ell+2}$
+and $P_{\ell+3}$ are adjoined to $G_\ell$, the nine shifted copies of the coefficient sequence of
+$G_\ell$ overlap at most two at a time, and only when they are adjacent. This forces the doubling
+$B_{\ell+2}=2B_\ell$ and turns the maximizer sets into an exact set recursion.
+
+\subsection{Scope and status}
+The statements concern the Pell recurrence, the digit set $\{0,1,2\}$, the weight window
+$P_2,\dots,P_{\ell+1}$, the exponent window $\{-2m,\dots,2m\}$ and the target domains stated in each
+theorem; they do not extend to other recurrences, alphabets, windows or quadratic units. We do not
+claim priority: the statements were not found in the literature we consulted, but that search had
+documented gaps, which are listed in Section~\ref{sec:prior}. The mathematical work is human-directed, AI-authored research
+and has been checked by AI-model audits only; the statement at the
+end of the paper describes which system did what. No human mathematician has reviewed the proofs.
+
+\subsection{Organization}
+Section~\ref{sec:defs} fixes notation and collects the elementary identities used later.
+Sections~\ref{sec:pet1}--\ref{sec:pet4} prove the four Pell theorems, and
+Sections~\ref{sec:stt1}--\ref{sec:stt3} the three silver-ratio theorems. Section~\ref{sec:discussion}
+discusses scope, limitations, the literature and the verification status. Appendix~\ref{app:examples}
+lists small cases, Appendix~\ref{app:status} summarizes what is and is not established, and
+Appendix~\ref{app:aliases} records the historical labels of the theorems and the role of computer
+checks.
+
+%======================================================================
+\section{Definitions and Pell representation polynomials}\label{sec:defs}
+%======================================================================
+
+\subsection{Pell numbers}
+Let $P_0=0$, $P_1=1$ and $P_{n+2}=2P_{n+1}+P_n$; thus
+$P_2=2$, $P_3=5$, $P_4=12$, $P_5=29$, $P_6=70$, $P_7=169$. We extend the sequence to all $n\in\Z$ by
+$P_{-n}=(-1)^{n+1}P_n$. The recurrence then holds for all $n\in\Z$: for $n=1$ it reads
+$P_1-2P_0=1=P_{-1}$, and for $n\ge2$ one has
+$P_{-n+2}-2P_{-n+1}=(-1)^{n-1}P_{n-2}+2(-1)^{n-1}P_{n-1}=(-1)^{n+1}(P_{n-2}+2P_{n-1})=P_{-n}$.
+
+\begin{lemma}[sums and parity]\label{lem:sums}
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item $\sum_{j=1}^{r}P_j=(P_{r+1}+P_r-1)/2$ for every $r\ge0$.
+\item $P_n\equiv n\pmod 2$ for every $n\ge0$.
+\item $2P_n=P_{n+1}-P_{n-1}$ for every $n\ge1$. Consequently, for every $m\ge0$,
+\[
+2\sum_{i=1}^{m}P_{2i}=P_{2m+1}-1,\qquad 2\sum_{i=1}^{m}P_{2i-1}=P_{2m},\qquad
+2\sum_{i=0}^{m}P_{2i+1}=P_{2m+2}.
+\]
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) For $r=0$ both sides vanish. Passing from $r-1$ to $r$, the right-hand side increases by
+$(P_{r+1}-P_{r-1})/2=P_r$, which is the $r$-th summand.
+(b) $P_0$ and $P_1$ have the stated parities, and $P_{n+2}=2P_{n+1}+P_n\equiv P_n\pmod2$.
+(c) $P_{n+1}-P_{n-1}=2P_n$ is the recurrence. The three sums telescope:
+$\sum_{i=1}^m(P_{2i+1}-P_{2i-1})=P_{2m+1}-P_1$, $\sum_{i=1}^m(P_{2i}-P_{2i-2})=P_{2m}-P_0$ and
+$\sum_{i=0}^m(P_{2i+2}-P_{2i})=P_{2m+2}-P_0$.
+\end{proof}
+
+\begin{lemma}[addition and Cassini identities]\label{lem:cassini}
+For integers $a,b\ge1$, $P_{a+b}=P_aP_{b+1}+P_{a-1}P_b$. For $n\ge1$,
+$P_n^2-P_{n-1}P_{n+1}=(-1)^{n+1}$.
+\end{lemma}
+
+\begin{proof}
+Induction on $n$ gives
+\[
+Q=\begin{pmatrix}2&1\\1&0\end{pmatrix},\qquad
+Q^n=\begin{pmatrix}P_{n+1}&P_n\\P_n&P_{n-1}\end{pmatrix}\quad(n\ge1).
+\]
+The lower-left entry of $Q^aQ^b=Q^{a+b}$ is the addition identity. Taking determinants,
+$P_{n+1}P_{n-1}-P_n^2=(\det Q)^n=(-1)^n$.
+\end{proof}
+
+\begin{lemma}[powers of the silver ratio]\label{lem:powers}
+Let $\delta=1+\sqrt2$ and $\lambda=1-\sqrt2=-\delta^{-1}$. For every $k\in\Z$,
+\[
+\delta^k=P_k\,\delta+P_{k-1},\qquad \lambda^k=P_k\,\lambda+P_{k-1}.
+\]
+Consequently $P_k=(\delta^k-\lambda^k)/(2\sqrt2)$ and $P_k+P_{k-1}=(\delta^k+\lambda^k)/2$.
+\end{lemma}
+
+\begin{proof}
+Both $\delta$ and $\lambda$ are roots of $x^2=2x+1$. The formulas hold for $k=0$ (as $P_{-1}=1$) and
+$k=1$, and both sides satisfy the Pell recurrence in $k$, forwards and backwards. Subtracting the two
+formulas gives $\delta^k-\lambda^k=P_k(\delta-\lambda)=2\sqrt2\,P_k$; adding them gives
+$\delta^k+\lambda^k=P_k(\delta+\lambda)+2P_{k-1}=2P_k+2P_{k-1}$.
+\end{proof}
+
+\subsection{Two distinguished single representations}\label{sec:terminology}
+The word ``canonical'' is used in more than one sense for Pell representations, and we avoid it for
+representations. Two normalizations are in use.
+\begin{itemize}[leftmargin=1.6em]
+\item \emph{Greedy (minimal) representation} \cite{KnopfmacherRobbins2004,Horadam1996}: every positive
+integer has a unique representation $N=\sum_i\alpha_iP_i$ with $\alpha_i\in\{0,1,2\}$, subject to
+$\alpha_i=2\Rightarrow i\ge2$ and $\alpha_{i-1}=0$.
+\item \emph{Lazy (maximal) representation} \cite{Horadam1994,Horadam1996}: every positive integer has
+a unique representation $N=\sum_i\beta_iP_i$ with $\beta_i\in\{0,1,2\}$, finitely many non-zero,
+subject to $\beta_i=0\Rightarrow\beta_{i-1}=2$, and $\beta_k\in\{1,2\}$ for the largest index $k$.
+\end{itemize}
+The ``maximal representation'' of~\cite{Horadam1994} maximizes the number of summands of a
+\emph{single} representation. Every statement in this paper concerns a different quantity: the
+\emph{number} of representations of a fixed integer, that is, the size of a whole fibre.
+
+\subsection{The Pell counting model}
+For $\ell\ge1$ let
+\begin{equation}\label{eq:model}
+G_\ell(x)=\prod_{j=2}^{\ell+1}\bigl(1+x^{P_j}+x^{2P_j}\bigr),\qquad
+\rho_\ell(n)=[x^n]\,G_\ell(x),
+\end{equation}
+\[
+B_\ell=\max_{n\in\Z}\rho_\ell(n),\qquad M_\ell=\{n:\rho_\ell(n)=B_\ell\},
+\]
+and let $D_\ell=\deg G_\ell=2\sum_{j=2}^{\ell+1}P_j$. We set $\rho_\ell(n)=0$ for $n\notin[0,D_\ell]$.
+Equivalently, $\rho_\ell(n)$ is the number of words $d\in\{0,1,2\}^{\{2,\dots,\ell+1\}}$ with
+$\sum_jd_jP_j=n$. The weight $P_1=1$ is never used: the window always begins at $P_2=2$.
+
+\begin{lemma}[degree and symmetry]\label{lem:degree}
+For every $\ell\ge1$, $D_\ell=P_{\ell+2}+P_{\ell+1}-3$, and $\rho_\ell(n)=\rho_\ell(D_\ell-n)$ for
+all $n\in\Z$. In particular $n\in M_\ell$ if and only if $D_\ell-n\in M_\ell$.
+\end{lemma}
+
+\begin{proof}
+By Lemma~\ref{lem:sums}(a),
+$D_\ell=2\bigl(\sum_{j=1}^{\ell+1}P_j-P_1\bigr)=(P_{\ell+2}+P_{\ell+1}-1)-2$. The map
+$d_j\mapsto2-d_j$ is a bijection of $\{0,1,2\}$ and carries a word of value $n$ to a word of value
+$\sum_j(2-d_j)P_j=D_\ell-n$.
+\end{proof}
+
+\subsection{The silver-ratio model}\label{sec:silvermodel}
+For $m\ge0$ put $s=2m+2$ and
+\[
+R_m=\rho_{4m+1},\qquad H_m=D_{4m+1}=P_{4m+3}+P_{4m+2}-3,\qquad C_m=\sum_{j=-m}^{m}\delta^{2j},
+\]
+and let $\nu_m$ and $N_m$ be as in Section~\ref{sec:intro}. This is a \emph{ternary, symmetric-window}
+model: the digits are $0,1,2$, the exponent window is $\{-2m,\dots,2m\}$, and in $\nu_m(t)$ the
+target $t$ is a rational integer. Since every $\delta^k$ lies in $\Z[\sqrt2]$, every value
+$\sum_kd_k\delta^k$ lies in $\Z[\sqrt2]$. The integer $s=2m+2$ is always even; this parity is used in
+the proofs of \STTone{} and of Lemma~\ref{lem:residue}.
+
+%======================================================================
+\section{Exact maximum coefficient}\label{sec:pet1}
+%======================================================================
+
+Fix $\ell\ge1$ and write
+\[
+U=P_{\ell+1},\qquad V=P_{\ell+2},\qquad W=P_{\ell+3}=2V+U,\qquad D=D_\ell=U+V-3,
+\]
+the last identity by Lemma~\ref{lem:degree}. Since $V=2U+P_\ell$, we have $V-U=U+P_\ell\ge3$, with
+equality only for $\ell=1$; in particular $V>U+2$. Since
+$G_{\ell+2}=G_\ell\,(1+x^V+x^{2V})(1+x^W+x^{2W})$,
+\begin{equation}\label{eq:twostep}
+\rho_{\ell+2}(n)=\sum_{a,b\in\{0,1,2\}}\rho_\ell(n-aV-bW)\qquad(n\in\Z).
+\end{equation}
+This is the coefficient identity for a product of polynomials: distinct pairs $(a,b)$ correspond to
+distinct words, so no word is lost or counted twice.
+
+\begin{lemma}[the nine shifts]\label{lem:shifts}
+The nine shifts $aV+bW$ $(a,b\in\{0,1,2\})$ are pairwise distinct. In increasing order they are
+\begin{equation}\label{eq:shifts}
+\begin{gathered}
+e_0=0,\quad e_1=V,\quad e_2=2V,\quad e_3=2V+U,\quad e_4=3V+U,\\
+e_5=4V+U,\quad e_6=4V+2U,\quad e_7=5V+2U,\quad e_8=6V+2U,
+\end{gathered}
+\end{equation}
+with consecutive gaps $V,V,U,V,V,U,V,V$.
+\end{lemma}
+
+\begin{proof}
+$aV+bW=(a+2b)V+bU$. For fixed $b$ the three values increase in $a$ by steps of $V$; the blocks
+$b=0,1,2$ start at $0$, $W=2V+U$ and $2W=4V+2U$, and each block starts at distance $U>0$ above the
+last element of the previous block.
+\end{proof}
+
+\begin{lemma}[window lemma]\label{lem:window}
+For every $n\in\Z$, at most two shifts $e_i$ satisfy $0\le n-e_i\le D$. If two do, they are
+consecutive in the order~\eqref{eq:shifts}.
+\end{lemma}
+
+\begin{proof}
+The admissible shifts lie in the closed interval $[n-D,n]$, of length $D$. If three shifts
+$e_i<e_j<e_k$ lay in it, so would the three consecutive shifts $e_i,e_{i+1},e_{i+2}$, whose span is
+the sum of two consecutive gaps, namely $2V$ or $V+U$. Since $V>U$, both spans are at least
+$V+U=D+3>D$, a contradiction. The same estimate excludes two non-consecutive shifts, whose span is
+at least that of three consecutive ones.
+\end{proof}
+
+The margin is exactly $3$, so the conclusion survives the fact that the interval is closed. The
+argument uses only the degree $D$ of $G_\ell$ and the gap pattern, not the shape of the coefficients
+of $G_\ell$.
+
+\begin{proposition}\label{prop:upper}
+$B_{\ell+2}\le2B_\ell$ for every $\ell\ge1$.
+\end{proposition}
+
+\begin{proof}
+Fix $n$ and apply~\eqref{eq:twostep}. A term $\rho_\ell(n-e_i)$ is non-zero only if
+$0\le n-e_i\le D_\ell$, so by Lemma~\ref{lem:window} at most two terms are non-zero. Each is at most
+$B_\ell$. Hence $\rho_{\ell+2}(n)\le2B_\ell$.
+\end{proof}
+
+\begin{thmPETone}\phantomsection\label{thm:pet1}
+For every $\ell\ge1$,
+\[
+B_\ell=2^{\floor{(\ell-1)/2}}.
+\]
+Moreover, for every $\ell\ge1$ there is an integer $x_\ell$ with
+\begin{equation}\label{eq:pair}
+\rho_\ell(x_\ell)=\rho_\ell\bigl(x_\ell-P_{\ell+1}\bigr)=B_\ell .
+\end{equation}
+\end{thmPETone}
+
+\begin{proof}
+We prove~\eqref{eq:pair} and $B_{\ell+2}=2B_\ell$ simultaneously, by induction from $\ell$ to
+$\ell+2$, separately on odd and on even $\ell$; we keep the notation $U,V,W,D$.
+
+\emph{Bases.} For $\ell=1$, $G_1=1+x^2+x^4$, so $B_1=1$, and $x_1=2=P_2$ gives
+$\rho_1(2)=\rho_1(0)=1$. For $\ell=2$ the nine sums $2a+5b$ $(a,b\in\{0,1,2\})$ are
+$0,2,4,5,7,9,10,12,14$, pairwise distinct, so $B_2=1$, and $x_2=5=P_3$ gives
+$\rho_2(5)=\rho_2(0)=1$.
+
+\emph{Step.} Assume~\eqref{eq:pair} for $\ell$. By Lemma~\ref{lem:shifts}, $(e_2,e_3)=(2V,2V+U)$ and
+$(e_5,e_6)=(4V+U,4V+2U)$ are pairs of consecutive shifts at distance $U$. For
+$e\in\{2V,\,4V+U\}$ put $n=e+x_\ell$. Then~\eqref{eq:twostep} contains the two terms
+\[
+\rho_\ell(n-e)=\rho_\ell(x_\ell)=B_\ell,\qquad
+\rho_\ell(n-e-U)=\rho_\ell(x_\ell-P_{\ell+1})=B_\ell,
+\]
+and every other term is non-negative. Hence $\rho_{\ell+2}(n)\ge2B_\ell$, and with
+Proposition~\ref{prop:upper}, $B_{\ell+2}=2B_\ell$. Both targets $2V+x_\ell$ and $4V+U+x_\ell$ are
+therefore maximal, and they differ by $2V+U=P_{\ell+3}=P_{(\ell+2)+1}$. So~\eqref{eq:pair} holds for
+$\ell+2$ with $x_{\ell+2}=4V+U+x_\ell$.
+
+\emph{Conclusion.} From $B_{\ell+2}=2B_\ell$ and $B_1=B_2=1$ we get $B_{2k-1}=B_{2k}=2^{k-1}$ for
+$k\ge1$, which is $2^{\floor{(\ell-1)/2}}$.
+\end{proof}
+
+\begin{remark}[no circularity]\label{rem:noncirc}
+The lower bound in the step uses only~\eqref{eq:pair} at length $\ell$ and the non-negativity of the
+coefficients; it never uses $B_{\ell+2}$. The upper bound uses only the degree of $G_\ell$
+(Proposition~\ref{prop:upper}). The pair at length $\ell+2$ is derived from the two bounds, not
+assumed. In particular $B_{4m+1}=4^m$, the case used in Section~\ref{sec:stt2}.
+\end{remark}
+
+%======================================================================
+\section{Odd-length extremal classification}\label{sec:pet2}
+%======================================================================
+
+\begin{thmPETtwo}\phantomsection\label{thm:pet2}
+Let $\ell\ge1$ be odd, put $U=P_{\ell+1}$ and $u_\ell=(P_{\ell+2}-5)/2$. Then $u_\ell$ is an
+integer, $D_\ell=2u_\ell+U+2$, and
+\[
+M_\ell=\{u_\ell,\ u_\ell+2,\ u_\ell+U,\ u_\ell+U+2\}
+=\{u_\ell,\ u_\ell+2,\ D_\ell-u_\ell-2,\ D_\ell-u_\ell\}.
+\]
+For $\ell\ge3$ these are four distinct integers. For $\ell=1$ the set has three elements,
+$M_1=\{0,2,4\}$.
+\end{thmPETtwo}
+
+\begin{proof}
+Since $\ell+2$ is odd, $P_{\ell+2}$ is odd by Lemma~\ref{lem:sums}(b), so $u_\ell\in\Z$. By
+Lemma~\ref{lem:degree}, $2u_\ell+U+2=P_{\ell+2}+P_{\ell+1}-3=D_\ell$; this also converts the two
+descriptions of $M_\ell$ into each other, since $D_\ell-u_\ell-2=u_\ell+U$ and
+$D_\ell-u_\ell=u_\ell+U+2$. For $\ell\ge3$, $U\ge P_4=12>2$, so the four numbers are distinct.
+We argue by induction on odd $\ell$.
+
+\emph{Base $\ell=1$.} Here $u_1=(P_3-5)/2=0$, $U=P_2=2$ and $D_1=4$. Directly from
+$G_1=1+x^2+x^4$, $M_1=\{0,2,4\}$, which is the stated set (the elements $u_1+2$ and $u_1+U$
+coincide).
+
+\emph{Step.} Assume the claim at an odd $\ell$, write $B=B_\ell$, $u=u_\ell$, and use $U,V,W,D$ of
+Section~\ref{sec:pet1}. By \PETone, $B_{\ell+2}=2B$. Recall that
+\begin{equation}\label{eq:VbigU}
+V=2U+P_\ell>U+2.
+\end{equation}
+
+\emph{Necessity.} Suppose $\rho_{\ell+2}(n)=2B$. By Lemma~\ref{lem:window} at most two terms
+of~\eqref{eq:twostep} are non-zero, and each is at most $B$; since they sum to $2B$, there are
+exactly two of them, they belong to consecutive shifts $e<e'$, and each equals $B$. Then
+$n-e,\ n-e'\in M_\ell$, so $e'-e$ is a positive difference of two elements of $M_\ell$. The positive
+differences of $\{u,u+2,u+U,u+U+2\}$ lie in
+\begin{equation}\label{eq:diffs}
+\{2,\ U-2,\ U,\ U+2\}.
+\end{equation}
+On the other hand $e'-e\in\{V,U\}$ by Lemma~\ref{lem:shifts}, and $V$ does not belong
+to~\eqref{eq:diffs} by~\eqref{eq:VbigU}. Hence $e'-e=U$, and by Lemma~\ref{lem:shifts} the only
+consecutive pairs at distance $U$ are $(2V,2V+U)$ and $(4V+U,4V+2U)$; thus $e\in\{2V,4V+U\}$.
+
+Put $y=n-e'$. Then $n-e=y+U$, and $y,\ y+U\in M_\ell$. Every element of $M_\ell$ is at least $u$,
+so $y+U\ge u+U$. The elements of $M_\ell$ that are at least $u+U$ are exactly $u+U$ and $u+U+2$:
+this is clear for $U>2$, because $u<u+2<u+U<u+U+2$, and for $\ell=1$ (where $U=2$) the elements
+$u+2$ and $u+U$ coincide and the list is still $\{u+U,u+U+2\}$. Hence $y\in\{u,u+2\}$, and
+\[
+n=e'+y\in\{\,2V+U+u,\ 2V+U+u+2,\ 4V+2U+u,\ 4V+2U+u+2\,\}.
+\]
+
+\emph{Sufficiency.} For each of these four $n$, the consecutive pair of shifts $(e,e+U)$ with
+$e\in\{2V,4V+U\}$ contributes the two terms $B+B$. Hence $\rho_{\ell+2}(n)\ge2B=B_{\ell+2}$, and by
+Proposition~\ref{prop:upper} each such $n$ is a maximizer.
+
+\emph{Shape.} Put $u'=2V+U+u$ and $U'=P_{\ell+3}=2V+U$. The four points are
+$u',\ u'+2,\ u'+U',\ u'+U'+2$. Since $P_{\ell+4}=2P_{\ell+3}+P_{\ell+2}=5V+2U$,
+\[
+u'=\frac{4V+2U+(V-5)}{2}=\frac{P_{\ell+4}-5}{2}=u_{\ell+2},
+\]
+which is the claim at length $\ell+2$.
+\end{proof}
+
+\begin{remark}[specialization to $\ell=4m+1$]\label{rem:special}
+Take $\ell=4m+1$ and $s=2m+2$. Then $U=P_{4m+2}=P_{2s-2}$ (not $P_s$, unless $m=0$), and by
+Lemma~\ref{lem:Cm} below $u_\ell=(P_{4m+3}-5)/2=z_m-2$, where $z_m=C_mP_s$. Using
+$u_\ell+U=D_\ell-u_\ell-2$ and $H_m=D_{4m+1}$,
+\[
+\argmax_nR_m(n)=\{\,z_m-2,\ z_m,\ H_m-z_m,\ H_m-z_m+2\,\}.
+\]
+For $m=0$ this is $\{0,2,4\}$; for $m\ge1$ it consists of four distinct integers.
+\end{remark}
+
+%======================================================================
+\section{Even-length recurrence and counting}\label{sec:pet3}
+%======================================================================
+
+For a length $L\ge1$ and an integer $g$ put
+\[
+T_L(g)=\{x\in M_L:\ x-g\in M_L\}.
+\]
+
+\begin{lemma}[extremal-set recurrence]\label{lem:setrec}
+For every $\ell\ge1$, with the shifts $e_0<\dots<e_8$ of~\eqref{eq:shifts},
+\[
+M_{\ell+2}=\bigcup_{i=0}^{7}\bigl((M_\ell+e_i)\cap(M_\ell+e_{i+1})\bigr)
+=\bigcup_{i=0}^{7}\bigl(e_i+T_\ell(e_{i+1}-e_i)\bigr),
+\]
+and the eight pieces are pairwise disjoint.
+\end{lemma}
+
+\begin{proof}
+By \PETone, $B_{\ell+2}=2B_\ell$. By Lemma~\ref{lem:window}, $\rho_{\ell+2}(n)=2B_\ell$ requires two
+non-zero summands in~\eqref{eq:twostep}, both equal to $B_\ell$ and belonging to consecutive shifts
+$e_i,e_{i+1}$, i.e.\ $n\in(M_\ell+e_i)\cap(M_\ell+e_{i+1})$. Conversely, a point of such an
+intersection has two summands equal to $B_\ell$ and, by Lemma~\ref{lem:window}, no third non-zero
+summand, so its coefficient is $2B_\ell$. A point common to two different pieces would have three
+non-zero summands, which Lemma~\ref{lem:window} excludes. Finally
+$(M_\ell+e_i)\cap(M_\ell+e_{i+1})=e_i+T_\ell(e_{i+1}-e_i)$ by definition of $T_\ell$.
+\end{proof}
+
+From now on let $\ell=2k$ with $k\ge1$, and put
+\[
+a=P_{2k+2},\qquad c=P_{2k+1},\qquad e=P_{2k+3}=2a+c,\qquad v=\frac{c-5}{2}.
+\]
+In the notation of Section~\ref{sec:pet1} (with $\ell=2k$), $V=a$, $U=c$, $W=e$; $v$ is an integer
+because $c$ is odd. (Here $e$ denotes the number $P_{2k+3}$, not one of the shifts $e_i$
+of~\eqref{eq:shifts}.) Let
+\[
+X_k=T_{2k}(a),\qquad Y_k=T_{2k}(c),\qquad q_{2k}=|Y_k|.
+\]
+
+\begin{lemma}[even blocks]\label{lem:blocks}
+For every $k\ge1$,
+\[
+M_{2k+2}=(Q_X+X_k)\sqcup(Q_Y+Y_k),\qquad Q_X=\{0,a,e,a+e,2e,a+2e\},\qquad Q_Y=\{2a,\,2a+e\},
+\]
+where the six translates $h+X_k$ $(h\in Q_X)$ and the two translates $r+Y_k$ $(r\in Q_Y)$ are
+pairwise disjoint.
+\end{lemma}
+
+\begin{proof}
+In the order~\eqref{eq:shifts} the shifts are $0,a,2a,e,a+e,2a+e,2e,a+2e,2a+2e$, with gaps
+$a,a,c,a,a,c,a,a$. The two gaps equal to $c$ start at $e_2=2a$ and $e_5=2a+e$; the six gaps equal to
+$a$ start at $0,a,e,a+e,2e,a+2e$. Apply Lemma~\ref{lem:setrec}.
+\end{proof}
+
+\begin{lemma}[$X_k$ and the extreme maximizers]\label{lem:X}
+For every $k\ge1$: $\min M_{2k}=v$, $\max M_{2k}=a+v+2$, $v+2\in M_{2k}$, $v+1\notin M_{2k}$,
+and
+\[
+X_k=\{a+v,\ a+v+2\};\qquad\text{in particular }|X_k|=2.
+\]
+\end{lemma}
+
+\begin{proof}
+Let $L=2k$, so $L-1$ is odd. By \PETtwo{} at length $L-1$ (where
+$u_{L-1}=(P_{L+1}-5)/2=v$ and $U=P_L$), $M_{L-1}=\{v,v+2,v+P_L,v+P_L+2\}$; hence
+$\min M_{L-1}=v$, $v+2\in M_{L-1}$ and $v+1\notin M_{L-1}$. Since $G_L=G_{L-1}(1+x^c+x^{2c})$, only
+the constant term of the last factor contributes to coefficients below $c$, so
+$\rho_L(n)=\rho_{L-1}(n)$ for $n<c$; and $B_L=B_{L-1}$ by \PETone, because
+$\floor{(L-1)/2}=\floor{(L-2)/2}$. Hence $M_L\cap[0,c)=M_{L-1}\cap[0,c)$, and since $v+2=(c-1)/2<c$
+we obtain $\min M_L=v$, $v+2\in M_L$ and $v+1\notin M_L$. By Lemma~\ref{lem:degree},
+$D_L=a+c-3=a+2v+2$, so by symmetry $\max M_L=D_L-v=a+v+2$ and $a+v=D_L-(v+2)\in M_L$.
+If $x\in X_k$, then $x-a\ge\min M_L=v$ and $x\le\max M_L=a+v+2$, so $x-a\in\{v,v+1,v+2\}$; as
+$v+1\notin M_L$, only $x-a\in\{v,v+2\}$ remains, and both $x=a+v$ and $x=a+v+2$ belong to $X_k$
+because $a+v,\ a+v+2,\ v,\ v+2\in M_L$.
+\end{proof}
+
+\begin{lemma}[the $Y$-recurrence]\label{lem:Y}
+$Y_1=\{5,7,9,10,12,14\}$, so $q_2=6$. For every $k\ge1$, every $y\in Y_k$ satisfies
+$c+v\le y\le a+v+2$, and
+\[
+Y_{k+1}=\bigl(\{e,\,a+e,\,2e,\,a+2e\}+X_k\bigr)\ \sqcup\ \bigl(2a+e+Y_k\bigr).
+\]
+Hence $q_{2k+2}=q_{2k}+8$ and $q_{2k}=8k-2$ for every $k\ge1$.
+\end{lemma}
+
+\begin{proof}
+For $k=1$, $M_2=\{0,2,4,5,7,9,10,12,14\}$ (proof of \PETone) and $c=5$; the elements $y$ with
+$y-5\in M_2$ are $5,7,9,10,12,14$.
+
+\emph{Bounds.} If $y\in Y_k$ then $y-c\in M_{2k}$, so $y\ge c+\min M_{2k}=c+v$, and
+$y\le\max M_{2k}=a+v+2$ by Lemma~\ref{lem:X}. In particular every difference of two elements of
+$Y_k$ is at most $a+2-c<e$. Since $X_k=\{a+v,a+v+2\}$ and $y\ge v$, every $x\in X_k$ and
+$y\in Y_k$ satisfy $-2\le x-y\le a+2$.
+
+\emph{Classification.} By definition $Y_{k+1}=T_{2k+2}(e)=\{z\in M_{2k+2}:z-e\in M_{2k+2}\}$. By
+Lemma~\ref{lem:blocks} every element of $M_{2k+2}$ lies in exactly one block $h+X_k$ $(h\in Q_X)$
+or $r+Y_k$ $(r\in Q_Y)$. We classify the pairs $(z,z-e)$ according to the blocks of $z$ and of
+$z-e$.
+
+\emph{$X$--$X$.} Let $z=h''+x''$ and $z-e=h'+x'$ with $h',h''\in Q_X$ and $x',x''\in X_k$. Then
+$x''-x'\in\{-2,0,2\}$, so $h''-h'\in\{e-2,e,e+2\}$. The positive differences of $Q_X$ are
+$a,\ e-a=a+c,\ e,\ a+e,\ 2e-a=3a+2c,\ 2e,\ a+2e$, and all except $e$ differ from $e$ by at least
+$a\ge12>2$. Hence $h''-h'=e$ and $x''=x'$. The pairs $(h',h'')$ with $h''-h'=e$ are $(0,e)$,
+$(a,a+e)$, $(e,2e)$ and $(a+e,a+2e)$, so this case contributes exactly
+$\{e,a+e,2e,a+2e\}+X_k$, eight points.
+
+\emph{$Y$--$Y$.} Let $z=r''+y''$ and $z-e=r'+y'$ with $r',r''\in Q_Y=\{2a,2a+e\}$, so that
+$(r''-r')+(y''-y')=e$ and $r''-r'\in\{-e,0,e\}$. The cases $r''=r'$ and $r''=r'-e$ would require
+$y''-y'\in\{e,2e\}$, which is impossible because $|y''-y'|<e$. Hence $r'=2a$, $r''=2a+e$ and
+$y''=y'$. This contributes exactly $2a+e+Y_k$.
+
+\emph{$X$--$Y$.} Let $z=\xi+x$ with $\xi\in Q_X$, $x\in X_k$, and $z-e=\eta+y$ with $\eta\in Q_Y$,
+$y\in Y_k$. Then $x-y=e-(\xi-\eta)$. The eight values of $\xi-\eta$ are
+$-4a-c,\,-3a-c,\,-2a,\,-a,\,c,\,a+c,\,2a+2c,\,3a+2c$, so the required values of $x-y$ are
+$6a+2c,\,5a+2c,\,4a+c,\,3a+c,\,2a,\,a,\,-c,\,-a-c$. Since $-2\le x-y\le a+2<2a$ and
+$-c\le-5<-2$, only $x-y=a$ is possible. It forces $y=x-a\in\{v,v+2\}$, whereas $y\ge c+v>v+2$.
+No such pair exists.
+
+\emph{$Y$--$X$.} Let $z=\eta+y$ and $z-e=\xi+x$. Then $y-x=e-(\eta-\xi)$ takes the eight values
+$-2a,\,-a,\,c,\,a+c,\,2a+2c,\,3a+2c,\,4a+3c,\,5a+3c$. Since $-a-2\le y-x\le2$, $-2a<-a-2$ and
+$c>2$, only $y-x=-a$ is possible. It forces $y=x-a\in\{v,v+2\}$ again. No such pair exists.
+
+The two surviving parts are disjoint, because the first lies in $Q_X+X_k$ and the second in
+$Q_Y+Y_k$. Counting gives $q_{2k+2}=4\cdot|X_k|+q_{2k}=q_{2k}+8$, and with $q_2=6$, $q_{2k}=8k-2$.
+\end{proof}
+
+\begin{thmPETthree}\phantomsection\label{thm:pet3}
+Let $E_k=|M_{2k}|$. Then $E_1=9$, and $E_k=16k-8$ for every $k\ge2$. The formula $16k-8$ does not
+hold at $k=1$.
+\end{thmPETthree}
+
+\begin{proof}
+By the proof of \PETone, $B_2=1$ and $M_2=\{0,2,4,5,7,9,10,12,14\}$, so $E_1=9$. For $k\ge1$,
+Lemma~\ref{lem:blocks} decomposes $M_{2k+2}$ into six pairwise disjoint translates of $X_k$ and two
+pairwise disjoint translates of $Y_k$, so by Lemmas~\ref{lem:X} and~\ref{lem:Y}
+\[
+E_{k+1}=6\cdot2+2(8k-2)=16(k+1)-8 .
+\]
+At $k=1$ the formula would give $8\ne9$.
+\end{proof}
+
+%======================================================================
+\section{Explicit parametrization}\label{sec:pet4}
+%======================================================================
+
+For $k\ge1$ and $j\ge3$ put
+\[
+S_j=P_3+P_4+\dots+P_j,\qquad K=\{0,2,4,5,7,9\},\qquad z_1=\frac{P_{2k+2}}{2}-6,\qquad
+z_2=z_1+P_{2k+1},
+\]
+and define the six families
+\[
+\begin{aligned}
+\CC_1&=z_1+K, &\qquad \CC_2&=z_2+K,\\
+\OL_j&=\{z_1-S_j,\ z_1-S_j+2\}, && 3\le j\le 2k,\\
+\IR_j&=\{z_1+7+S_j,\ z_1+9+S_j\}, && 3\le j\le 2k-1,\\
+\IL_j&=\{z_2-S_j,\ z_2-S_j+2\}, && 3\le j\le 2k-1,\\
+\OR_j&=\{z_2+7+S_j,\ z_2+9+S_j\}, && 3\le j\le 2k.
+\end{aligned}
+\]
+We call $\CC_1,\CC_2$ the \emph{cores}, $\OL_j,\OR_j$ the \emph{outer chains} and $\IR_j,\IL_j$ the
+\emph{inner chains}, and we write
+\[
+\Fam_k=\CC_1\cup\CC_2\cup\bigcup_{j=3}^{2k}(\OL_j\cup\OR_j)\cup\bigcup_{j=3}^{2k-1}(\IR_j\cup\IL_j).
+\]
+(Sans-serif letters denote these families; $C_m$ in italics is the silver-ratio target of
+Section~\ref{sec:silvermodel}.) For $k=1$ all four chains are empty.
+
+\begin{thmPETfour}\phantomsection\label{thm:pet4}
+For every $k\ge1$, $M_{2k}=\Fam_k$. If $k\ge2$, the $16k-8$ numbers listed in the six families are
+pairwise distinct, and blockwise
+\[
+\OL_{2k}<\dots<\OL_3<\CC_1<\IR_3<\dots<\IR_{2k-1}<\IL_{2k-1}<\dots<\IL_3<\CC_2<\OR_3<\dots<\OR_{2k},
+\]
+so $|M_{2k}|=16k-8$. If $k=1$, then $z_1=0$, $z_2=5$, the chains are empty,
+$\CC_1\cap\CC_2=\{5,7,9\}$ and $M_2=\CC_1\cup\CC_2$ has $9$ elements.
+\end{thmPETfour}
+
+The proof occupies the rest of this section. We keep the notation $a,c,e,v,X_k,Y_k$ of
+Section~\ref{sec:pet3} at level $k$, and we write $z_1',z_2'$ and $\CC_1',\OL_j',\dots$ for the
+corresponding objects at level $k+1$; thus $z_1'=P_{2k+4}/2-6$ and $z_2'=z_1'+P_{2k+3}=z_1'+e$.
+
+\begin{lemma}[arithmetic of the parameters]\label{lem:arith}
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item $S_j=(P_j+P_{j+1}-7)/2$ is an integer, and $S_{j+1}-S_j=P_{j+1}\ge12$ for $j\ge3$.
+\item $z_1=\sum_{j=2}^{k}P_{2j+1}$ (an empty sum for $k=1$); in particular $z_1,z_2\in\Z$.
+\item $D_{2k}=z_1+z_2+9$.
+\item For $k\ge2$, $S_{2k-1}+S_{2k}+7=c$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(i) By Lemma~\ref{lem:sums}(a), $S_j=(P_{j+1}+P_j-1)/2-P_1-P_2=(P_j+P_{j+1}-7)/2$; the numerator is
+even because $P_j$ and $P_{j+1}$ have different parities (Lemma~\ref{lem:sums}(b)).
+(ii) By Lemma~\ref{lem:sums}(c), $\sum_{i=0}^{k}P_{2i+1}=P_{2k+2}/2$; subtract $P_1+P_3=6$.
+(iii) $z_1+z_2+9=2z_1+c+9=a+c-3=D_{2k}$ by Lemma~\ref{lem:degree}.
+(iv) $S_{2k-1}+S_{2k}+7=(P_{2k-1}+2P_{2k}+P_{2k+1})/2=(2P_{2k+1})/2=c$.
+\end{proof}
+
+\begin{lemma}[nine identities]\label{lem:nine}
+For every $k\ge1$:
+\begin{align*}
+&(1)\quad z_1'=z_1+e, &&(2)\quad z_2'=z_1+2e=z_2+2a+e,\\
+&(3)\quad S_{2k-1}+S_{2k}+7=c\quad(k\ge2), &&(4)\quad z_1'+7+S_{2k+1}=e+a+v,\\
+&(5)\quad z_2'-S_{2k+1}=e+2a+v, &&(6)\quad z_2'+7+S_{2k+1}=2e+a+v,\\
+&(7)\quad z_2'+7+S_{2k+2}=2e+2a+v, &&(8)\quad z_1'-S_{2k+1}=2a+v,\\
+&(9)\quad z_1'-S_{2k+2}=a+v.
+\end{align*}
+\end{lemma}
+
+\begin{proof}
+We use $P_{2k+4}=2e+a$, $e=2a+c$, $S_{2k+1}=(a+c-7)/2$, $S_{2k+2}=(a+e-7)/2$ (Lemma~\ref{lem:arith}(i))
+and $(e-5)/2=a+v$.
+(1) $z_1'=(2e+a)/2-6=e+z_1$.
+(2) $z_2'=z_1'+e=z_1+2e$, and $z_2+2a+e=z_1+c+2a+e=z_1+2e$.
+(3) is Lemma~\ref{lem:arith}(iv).
+(4) $z_1'+7+S_{2k+1}=e+\tfrac a2+1+\tfrac{a+c-7}{2}=e+a+\tfrac{c-5}{2}=e+a+v$.
+(5) $z_2'-S_{2k+1}=(z_1'+7+S_{2k+1})+e-7-2S_{2k+1}=2e+a+v-(a+c)=e+2a+v$, using $e-c=2a$.
+(6) $z_2'+7+S_{2k+1}=(z_1'+7+S_{2k+1})+e=2e+a+v$ by (4).
+(7) $z_2'+7+S_{2k+2}=2e+\tfrac a2+1+\tfrac{a+e-7}{2}=2e+a+\tfrac{e-5}{2}=2e+2a+v$.
+(8) $z_1'-S_{2k+1}=(z_2'-S_{2k+1})-e=2a+v$ by (5).
+(9) $z_1'-S_{2k+2}=e+\tfrac a2-6-\tfrac{a+e-7}{2}=\tfrac{e-5}{2}=a+v$.
+\end{proof}
+
+For $k\ge1$ let
+\[
+\Gamma_k=\CC_2\cup\bigcup_{j=3}^{2k-1}\IL_j\cup\bigcup_{j=3}^{2k}\OR_j\cup\IR_{2k-1},
+\]
+with the families taken at level $k$, where the last term is present only for $k\ge2$.
+
+\begin{proposition}[closed form of $Y_k$]\label{prop:Yclosed}
+$Y_k=\Gamma_k$ for every $k\ge1$.
+\end{proposition}
+
+\begin{proof}
+For $k=1$, $z_2=5$ and all chains are empty, so $\Gamma_1=5+K=Y_1$ by Lemma~\ref{lem:Y}. Assume
+$Y_k=\Gamma_k$ for some $k\ge1$. By Lemma~\ref{lem:Y} it suffices to show
+\[
+\Gamma_{k+1}=\bigl(\{e,a+e,2e,a+2e\}+X_k\bigr)\cup\bigl(2a+e+\Gamma_k\bigr).
+\]
+\emph{The translate.} By identity~(2), $z_2+2a+e=z_2'$, so translation by $2a+e$ maps $\CC_2$ onto
+$\CC_2'$, $\IL_j$ onto $\IL_j'$ $(3\le j\le2k-1)$ and $\OR_j$ onto $\OR_j'$ $(3\le j\le2k)$. For
+$k\ge2$ it also maps $\IR_{2k-1}$ onto $\IL_{2k}'$: indeed, by identity~(3),
+$z_1+7+S_{2k-1}+2a+e=z_1+2a+e+c-S_{2k}=z_1+2e-S_{2k}=z_2'-S_{2k}$ by identity~(2). Hence
+\[
+2a+e+\Gamma_k=\CC_2'\cup\bigcup_{j=3}^{2k}\bigl(\IL_j'\cup\OR_j'\bigr).
+\]
+\emph{The remaining families.} The families of $\Gamma_{k+1}$ not yet obtained are $\IL_{2k+1}'$,
+$\OR_{2k+1}'$, $\OR_{2k+2}'$ and $\IR_{2k+1}'$. Each has the form $\{p,p+2\}$, and by
+identities~(5), (6), (7) and~(4) their smallest elements $p$ are $e+2a+v$, $2e+a+v$, $2e+2a+v$
+and $e+a+v$, that is, the four numbers $\{e,a+e,2e,a+2e\}+(a+v)$. Since $X_k=\{a+v,a+v+2\}$
+(Lemma~\ref{lem:X}), these four families together are exactly $\{e,a+e,2e,a+2e\}+X_k$. This proves
+the displayed identity, hence $Y_{k+1}=\Gamma_{k+1}$.
+\end{proof}
+
+\begin{proof}[Proof of $M_{2k}=\Fam_k$]
+For $k=1$, $\Fam_1=K\cup(5+K)=\{0,2,4,5,7,9,10,12,14\}=M_2$. Let $k\ge1$; we show
+$\Fam_{k+1}=M_{2k+2}$. By Lemma~\ref{lem:blocks} and Proposition~\ref{prop:Yclosed},
+\[
+Q_Y+Y_k=(2a+e+\Gamma_k)\cup\bigl((2a+e+\Gamma_k)-e\bigr).
+\]
+The first set was computed in the proof of Proposition~\ref{prop:Yclosed}. Subtracting $e$ replaces
+$z_2'$ by $z_2'-e=z_1'$, so it maps $\CC_2'\mapsto\CC_1'$, $\IL_j'\mapsto\OL_j'$ and
+$\OR_j'\mapsto\IR_j'$. Therefore
+\[
+Q_Y+Y_k=\CC_1'\cup\CC_2'\cup\bigcup_{j=3}^{2k}\bigl(\OL_j'\cup\IR_j'\cup\IL_j'\cup\OR_j'\bigr).
+\]
+The families of $\Fam_{k+1}$ not yet obtained are $\OL_{2k+1}'$, $\OL_{2k+2}'$, $\IR_{2k+1}'$,
+$\IL_{2k+1}'$, $\OR_{2k+1}'$ and $\OR_{2k+2}'$. Each has the form $\{p,p+2\}$, and by
+identities~(8), (9), (4), (5), (6) and~(7) their smallest elements are
+$2a+v$, $a+v$, $e+a+v$, $e+2a+v$, $2e+a+v$ and $2e+2a+v$, that is, exactly $Q_X+(a+v)$. With
+$X_k=\{a+v,a+v+2\}$ these six families are exactly $Q_X+X_k$. Hence
+$\Fam_{k+1}=(Q_X+X_k)\cup(Q_Y+Y_k)=M_{2k+2}$ by Lemma~\ref{lem:blocks}.
+\end{proof}
+
+\begin{remark}[no circularity]\label{rem:noncirc4}
+Proposition~\ref{prop:Yclosed} uses only Lemmas~\ref{lem:X}, \ref{lem:Y} and~\ref{lem:nine}, never
+the identity $M_{2k}=\Fam_k$; the proof of $M_{2k}=\Fam_k$ then uses
+Proposition~\ref{prop:Yclosed}. No comparison of cardinalities is used: $M_{2k}=\Fam_k$ is proved as
+an identity of sets.
+\end{remark}
+
+\begin{proposition}[ordering and count]\label{prop:order}
+Let $k\ge2$. The six families are pairwise disjoint, the blocks are ordered as displayed in
+\PETfour, and $|\Fam_k|=16k-8$.
+\end{proposition}
+
+\begin{proof}
+Within a chain, consecutive smallest elements differ by $S_{j+1}-S_j=P_{j+1}\ge12>2$
+(Lemma~\ref{lem:arith}(i)), so the two-element blocks of a chain are disjoint and ordered by $j$
+(decreasing in $\OL$ and $\IL$, increasing in $\IR$ and $\OR$). Between the families:
+$\max\OL=z_1-S_3+2=z_1-3<z_1=\min\CC_1$; $\max\CC_1=z_1+9<z_1+12=z_1+7+S_3=\min\IR$;
+$\max\IR=z_1+9+S_{2k-1}<z_2-S_{2k-1}=\min\IL$, which is equivalent to $2S_{2k-1}+9<c$, i.e.\ by
+Lemma~\ref{lem:arith}(iv) to $S_{2k-1}+2<S_{2k}$, i.e.\ to $2<P_{2k}$, true for $k\ge2$;
+$\max\IL=z_2-S_3+2=z_2-3<z_2=\min\CC_2$; and $\max\CC_2=z_2+9<z_2+12=\min\OR$. Counting,
+$|\OL|=|\OR|=2(2k-2)$, $|\IR|=|\IL|=2(2k-3)$ and $|\CC_1|=|\CC_2|=6$, so
+$|\Fam_k|=2(4k-4)+2(4k-6)+12=16k-8$.
+\end{proof}
+
+\begin{proof}[Completion of the proof of \PETfour]
+The identity $M_{2k}=\Fam_k$ was proved above, and Proposition~\ref{prop:order} gives the ordering,
+disjointness and count for $k\ge2$. For $k=1$, $z_1=P_4/2-6=0$ and $z_2=5$; the index ranges of all
+four chains are empty, $\CC_1=\{0,2,4,5,7,9\}$, $\CC_2=\{5,7,9,10,12,14\}$, $\CC_1\cap\CC_2=\{5,7,9\}$,
+and the twelve listed numbers collapse to the nine elements of $M_2$.
+\end{proof}
+
+\begin{remark}[extremes and symmetry]\label{rem:symmetry4}
+For $k\ge2$, $\min M_{2k}=\min\OL_{2k}=z_1-S_{2k}=(a-P_{2k}-c-5)/2=v$, because $a=2c+P_{2k}$, and
+$\max M_{2k}=\max\OR_{2k}=z_2+9+S_{2k}=D_{2k}-v$, in agreement with Lemma~\ref{lem:X}. By
+Lemma~\ref{lem:arith}(iii) the reflection $n\mapsto D_{2k}-n=z_1+z_2+9-n$ of Lemma~\ref{lem:degree}
+maps $\CC_1$ onto $\CC_2$ (because $9-K=K$), $\OL_j$ onto $\OR_j$, and $\IR_j$ onto $\IL_j$:
+\[
+D_{2k}-(z_1+7+S_j)=z_2-S_j+2,\qquad D_{2k}-(z_1+9+S_j)=z_2-S_j .
+\]
+The index ranges $3\le j\le2k$ of $\OL,\OR$ and $3\le j\le2k-1$ of $\IR,\IL$ match, as the symmetry
+requires.
+\end{remark}
+
+\begin{remark}[scope]\label{rem:scope4}
+Together with Proposition~\ref{prop:order}, \PETfour{} gives a second derivation of the count in
+\PETthree; it uses the set identities of Lemmas~\ref{lem:blocks}--\ref{lem:Y} but not the cardinality
+recursion $q_{2k+2}=q_{2k}+8$. \PETfour{} is a description of $M_{2k}$; we make no claim that it is
+the simplest possible one, and it says nothing about coefficients close to the maximum.
+\end{remark}
+
+%======================================================================
+\section{Silver-ratio transfer}\label{sec:stt1}
+%======================================================================
+
+\begin{thmSTTone}\phantomsection\label{thm:stt1}
+For every $m\ge0$ and every $t\in\Z$, with $s=2m+2$,
+\[
+\nu_m(t)=R_m(tP_s)=\rho_{4m+1}(tP_{2m+2}).
+\]
+The identity is induced by the bijection $(d_k)_{k=-2m}^{2m}\mapsto(d_{j-s})_{j=2}^{4m+2}$ between the
+words of the two models; it is not an estimate.
+\end{thmSTTone}
+
+\begin{proof}
+Let $d=(d_k)_{k=-2m}^{2m}\in\{0,1,2\}^{4m+1}$ and put $X=\sum_kd_k\delta^k-t$. By
+Lemma~\ref{lem:powers},
+\[
+\delta^sX=A\,\delta+B',\qquad A=\sum_kd_kP_{k+s}-tP_s,\qquad B'=\sum_kd_kP_{k+s-1}-tP_{s-1}.
+\]
+Since $\{1,\delta\}$ is a basis of $\Q(\sqrt2)$ over $\Q$, $X=0$ if and only if $A=B'=0$.
+
+\emph{Step 1 (shift).} As $k$ runs over $\{-2m,\dots,2m\}$, the index $k+s$ runs over
+$\{2,\dots,4m+2\}$, which is the weight set of $G_{4m+1}$ in~\eqref{eq:model}.
+
+\emph{Step 2 (the second coordinate is redundant).} For even $s$ and every $k\in\Z$,
+\begin{equation}\label{eq:redund}
+P_{k+s-1}P_s-P_{k+s}P_{s-1}=-P_k.
+\end{equation}
+Indeed, as functions of $k$ both sides satisfy the Pell recurrence (the left side is a fixed linear
+combination of $P_{k+s-1}$ and $P_{k+s}$). They agree at $k=0$, where both vanish, and at $k=1$,
+where the left side is $P_s^2-P_{s-1}P_{s+1}=(-1)^{s+1}=-1=-P_1$ by Lemma~\ref{lem:cassini}, since
+$s$ is even. Multiplying $B'$ by $P_s$ and $A$ by $P_{s-1}$ and subtracting gives
+\[
+P_sB'-P_{s-1}A=-\sum_kd_kP_k=:-T .
+\]
+
+\emph{Step 3 (a strict bound on $T$).} By $P_{-n}=(-1)^{n+1}P_n$, the coefficient of $d_k$ in $T$ is
+$P_k\ge0$ for $k\ge0$ and for negative odd $k$, and it is $-P_{|k|}$ for negative even $k$. Hence
+\[
+-2\sum_{i=1}^{m}P_{2i}\ \le\ T\ \le\ 2\sum_{k=1}^{2m}P_k+2\sum_{i=1}^{m}P_{2i-1}.
+\]
+By Lemma~\ref{lem:sums}(a) and~(c), $2\sum_{i\le m}P_{2i}=P_{2m+1}-1$,
+$2\sum_{i\le m}P_{2i-1}=P_{2m}$ and $2\sum_{k\le2m}P_k=P_{2m+1}+P_{2m}-1$, so
+\[
+-(P_{2m+1}-1)\le T\le P_{2m+1}+2P_{2m}-1 .
+\]
+Since $P_s=2P_{2m+1}+P_{2m}$, we have $P_s-(P_{2m+1}+2P_{2m}-1)=P_{2m+1}-P_{2m}+1>0$ and
+$-P_s<-(P_{2m+1}-1)$. Hence $|T|<P_s$.
+
+\emph{Step 4 (conclusion).} If $A=0$, then $P_sB'=-T$, so $P_s\mid T$; as $|T|<P_s$, this forces
+$T=0$ and then $B'=0$. Thus $X=0$ holds exactly when $A=0$, that is, when
+$\sum_kd_kP_{k+s}=tP_s$. By Step~1 this is the Pell equation $\sum_{j=2}^{4m+2}d_{j-s}P_j=tP_s$ for
+the word $(d_{j-s})_j$ of $G_{4m+1}$, and the shift of indices is a bijection between the two sets of
+words.
+\end{proof}
+
+\begin{remark}[$m=0$]\label{rem:m0}
+Here $s=2$ and the window is the single exponent $k=0$; the statement reads
+$\nu_0(t)=\rho_1(2t)$, which equals $1$ for $t\in\{0,1,2\}$ and $0$ otherwise. Consistently,
+Step~3 gives $0\le T\le0$.
+\end{remark}
+
+\begin{remark}[what \STTone{} is not]\label{rem:notstt1}
+\STTone{} is an identity between two counting functions on the same window, written in two
+coordinate systems. It is not an asymptotic statement, not a bound, and not a statement about other
+windows, other digit alphabets or other quadratic units.
+\end{remark}
+
+%======================================================================
+\section{Maximum multiplicity and uniqueness}\label{sec:stt2}
+%======================================================================
+
+\begin{lemma}\label{lem:Cm}
+For every $m\ge0$, $C_m=P_{2m+1}+P_{2m}\in\Z$, and
+\[
+z_m:=C_mP_s=\frac{P_{4m+3}-1}{2}=\sum_{r=1}^{2m+1}P_{2r}.
+\]
+\end{lemma}
+
+\begin{proof}
+Summing the geometric series and using $\delta^2-1=2\delta$,
+\[
+C_m=\delta^{-2m}\,\frac{\delta^{4m+2}-1}{\delta^2-1}=\frac{\delta^{2m+2}-\delta^{-2m}}{2\delta}
+=\frac{\delta^{2m+1}-\delta^{-(2m+1)}}{2}.
+\]
+Since $\lambda=-\delta^{-1}$ and $2m+1$ is odd, $\lambda^{2m+1}=-\delta^{-(2m+1)}$, so
+$C_m=(\delta^{2m+1}+\lambda^{2m+1})/2=P_{2m+1}+P_{2m}$ by Lemma~\ref{lem:powers}. For even $s$ we have
+$\lambda^s=\delta^{-s}$, so $P_s=(\delta^s-\delta^{-s})/(2\sqrt2)$; for odd $r$ we have
+$\lambda^r=-\delta^{-r}$, so $P_r=(\delta^r+\delta^{-r})/(2\sqrt2)$. With $s=2m+2$,
+\begin{align*}
+C_mP_s&=\frac{(\delta^{2m+1}-\delta^{-(2m+1)})(\delta^{2m+2}-\delta^{-(2m+2)})}{4\sqrt2}\\
+&=\frac{\delta^{4m+3}+\delta^{-(4m+3)}-(\delta+\delta^{-1})}{4\sqrt2}
+=\frac{2\sqrt2\,P_{4m+3}-2\sqrt2\,P_1}{4\sqrt2}=\frac{P_{4m+3}-1}{2}.
+\end{align*}
+The last expression equals $\sum_{r=1}^{2m+1}P_{2r}$ by Lemma~\ref{lem:sums}(c).
+\end{proof}
+
+\begin{lemma}\label{lem:residue}
+For every $m\ge0$, $H_m\equiv-4\pmod{P_s}$.
+\end{lemma}
+
+\begin{proof}
+By Lemma~\ref{lem:degree}, $H_m=P_{4m+3}+P_{4m+2}-3=P_{2s-1}+P_{2s-2}-3$. The addition identity of
+Lemma~\ref{lem:cassini} with $a=b=s$ gives $P_{2s}=P_s(P_{s+1}+P_{s-1})\equiv0\pmod{P_s}$, and the
+recurrence $P_{2s}=2P_{2s-1}+P_{2s-2}$ then gives $P_{2s-2}\equiv-2P_{2s-1}$. With $a=s$, $b=s-1$
+it gives $P_{2s-1}=P_s^2+P_{s-1}^2\equiv P_{s-1}^2$. Cassini's identity
+$P_s^2-P_{s-1}P_{s+1}=(-1)^{s+1}=-1$, together with $P_{s+1}=2P_s+P_{s-1}\equiv P_{s-1}$, gives
+$P_{s-1}^2\equiv1$. Hence $H_m\equiv1-2-3=-4$.
+\end{proof}
+
+\begin{thmSTTtwo}\phantomsection\label{thm:stt2}
+For every $m\ge0$,
+\[
+N_m=\max_{t\in\Z}\nu_m(t)=4^m,
+\qquad
+\argmax_{t\in\Z}\nu_m(t)=
+\begin{cases}
+\{0,1,2\}, & m=0,\\
+\{C_m\}, & m\ge1.
+\end{cases}
+\]
+\end{thmSTTtwo}
+
+\begin{proof}
+By \STTone{} and \PETone, $\nu_m(t)=R_m(tP_s)\le B_{4m+1}=4^m$ for every $t\in\Z$.
+
+\emph{Attainment for $m\ge1$.} Let $\ell=4m+1$. By Lemma~\ref{lem:Cm},
+$u_\ell=(P_{4m+3}-5)/2=z_m-2$, so by \PETtwo{} (see Remark~\ref{rem:special}) the maximizers of
+$R_m$ are $z_m-2$, $z_m$, $H_m-z_m$ and $H_m-z_m+2$, each with value $4^m$. In particular
+$\nu_m(C_m)=R_m(C_mP_s)=R_m(z_m)=4^m$.
+
+\emph{Uniqueness for $m\ge1$.} Let $t\in\Z$ with $\nu_m(t)=4^m$. By \STTone, $tP_s$ is one of the four
+maximizers of $R_m$, and it is divisible by $P_s$. By Lemma~\ref{lem:residue} and $z_m\equiv0$, their
+residues modulo $P_s$ are
+\[
+z_m-2\equiv-2,\qquad z_m\equiv0,\qquad H_m-z_m\equiv-4,\qquad H_m-z_m+2\equiv-2 .
+\]
+For $m\ge1$, $P_s\ge P_4=12>4$, so $-2$ and $-4$ are non-zero modulo $P_s$. Hence $tP_s=z_m$ and
+$t=C_m$.
+
+\emph{The case $m=0$.} Here $P_s=P_2=2$ and the maximizers of $R_0=\rho_1$ are $0,2,4$, all divisible
+by $2$, so the residue argument gives no information: it needs $P_s>4$. By Remark~\ref{rem:m0},
+$\nu_0(t)=1$ exactly for $t\in\{0,1,2\}$, so $N_0=1=4^0$ and $\argmax\nu_0=\{0,1,2\}$. The case $m=0$
+is genuinely separate and is not a degenerate instance of the uniqueness statement.
+\end{proof}
+
+\begin{remark}[separation of the ingredients]\label{rem:sep}
+Attainment and uniqueness are proved separately. Attainment uses \PETtwo{} at $\ell=4m+1$;
+uniqueness uses the completeness part of \PETtwo{} together with Lemma~\ref{lem:residue}.
+\end{remark}
+
+%======================================================================
+\section{General algebraic fibre bound}\label{sec:stt3}
+%======================================================================
+
+\begin{thmSTTthree}\phantomsection\label{thm:stt3}
+Fix $m\ge0$ and the window $\{-2m,\dots,2m\}$. For every $\xi\in\Z[\sqrt2]$, the number of strings
+$d\in\{0,1,2\}^{4m+1}$ with $\sum_kd_k\delta^k=\xi$ is at most $4^m$. The bound is attained.
+\end{thmSTTthree}
+
+\begin{proof}
+Let $d$ be a string with $\sum_kd_k\delta^k=\xi$, and let $s=2m+2$. By Lemma~\ref{lem:powers},
+\[
+\delta^s\xi=\Bigl(\sum_kd_kP_{k+s}\Bigr)\delta+\sum_kd_kP_{k+s-1},
+\]
+so the coefficient $p=\sum_kd_kP_{k+s}$ of $\delta$ depends only on $\xi$ (the coordinates in the basis
+$\{\delta,1\}$ are unique), not on the string. The shift $k\mapsto k+s$ therefore maps the fibre over
+$\xi$ injectively into the set of words $(d_2,\dots,d_{4m+2})$ with $\sum_jd_jP_j=p$, which has
+$\rho_{4m+1}(p)\le B_{4m+1}=4^m$ elements by \PETone. The bound is attained at the integer target
+$C_m$ for $m\ge1$ and at $0,1,2$ for $m=0$, by \STTtwo.
+\end{proof}
+
+\begin{remark}[scope of \STTthree]\label{rem:scope11}
+\STTthree{} concerns all targets in $\Z[\sqrt2]$, not only integers. It is stronger than what
+\STTone{} gives directly, since \STTone{} says nothing about $\xi\in\Z[\sqrt2]\setminus\Z$. No target
+outside $\Z[\sqrt2]$ is represented by any string, so the fibre there is empty. The bound concerns
+the stated alphabet and window only.
+\end{remark}
+
+%======================================================================
+\section{Discussion and limitations}\label{sec:discussion}
+%======================================================================
+
+\subsection{Scope}
+\PETone{} and \PETtwo{} treat all lengths and all odd maximizers; \PETthree{} and \PETfour{} treat the
+even maximizers, with the exceptional base case $k=1$. Theorems STT-1 to STT-3 concern the specified
+ternary window and the target domains stated in the theorems: rational integers in \STTone{} and
+\STTtwo, and $\Z[\sqrt2]$ in \STTthree. The case $m=0$ of \STTtwo{} is separate.
+
+\subsection{What is not claimed}
+We give no description of $\rho_\ell(n)$ for general $n$, no finite automaton computing it, and no
+asymptotic distribution of the coefficients. We do not describe coefficients close to the maximum.
+We do not claim that the parametrization of \PETfour{} is optimal or minimal. We do not extend any
+result to other recurrences, other digit alphabets, other windows or other Pisot units. We do not
+claim that any statement in this paper is new.
+
+\subsection{Prior art and the depth of reading}\label{sec:prior}
+The \emph{type} of question is not new: the maximum of the representation function at a fixed
+numeration length, together with a description of the integers attaining it, is treated for the
+Fibonacci system in~\cite{KMP2005} and for the $m$-bonacci systems in~\cite{KMP2007}, and an exact
+maximum for minimal-weight Fibonacci expansions is~\cite[Theorem~4.6]{GrabnerSteiner2011}. In the
+sources listed below we did not find a treatment of the Pell system with digit set $\{0,1,2\}$ on the
+bounded window $P_2,\dots,P_{\ell+1}$, nor of fibres in $\Z[\sqrt2]$ over a symmetric window of
+exponents. No count-preserving transfer from the Fibonacci or $m$-bonacci results to the present
+setting is known to us: the recurrences ($x^2-x-1$ against $x^2-2x-1$), the alphabets and the
+normalizations differ.
+
+\begin{center}
+\small
+\begin{tabularx}{\textwidth}{@{}l>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+\toprule
+Source & Depth of reading in the project & Relation to this paper\\
+\midrule
+\cite{Horadam1994} & full text & one distinguished (lazy) representation; not a fibre count\\
+\cite{Horadam1996} & zbMATH review and metadata only & distinguished min/max Pell representations\\
+\cite{KnopfmacherRobbins2004} & full text & greedy representation; partitions of unbounded multiplicity\\
+\cite{KMP2005} & full text & Fibonacci, digits $\{0,1\}$: maximum and maximizers; closest type of result\\
+\cite{KMP2007} & full text & $m$-bonacci, digits $\{0,1\}$: same type of question\\
+\cite{Stockmeyer2009} & full text & sharp bound $R(n)\le\sqrt{n+1}$\\
+\cite{GrabnerSteiner2011} & full text & minimal-weight expansions only\\
+\cite{Edson2013} & publisher abstract only & general linear numeration systems; transfer not established\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+The full texts were read at earlier stages of the project; later stages relied on that reading and
+on bibliographic records, and the present text was edited without rereading them. A structured
+search of zbMATH Open, Crossref, OpenAlex, arXiv and OEIS was made at one stage. The remaining gaps
+are as follows. MathSciNet, Web of Science and Scopus were not accessed, and Google Scholar and
+Semantic Scholar were not usable. The full texts of~\cite{Horadam1996} and~\cite{Edson2013} were
+not available. Two 2026 preprints in a related
+setting were located (one on a Pell-to-ternary numeration map, read at the level of its description
+only, and one on a silver-ratio sieve, not retrieved), and a 2019 paper on ternary strings and Pell
+numbers was identified by title only; any of these, or a work not found, could contain an equivalent
+statement. A human bibliographic check is required before any claim of novelty.
+
+\subsection{Verification status}\label{sec:verification}
+Every proof in this paper is self-contained and uses no computation. The proofs have been examined
+by AI models only (see the statement on AI contribution below); they have not been read by a human
+mathematician, and no formal (machine-checked) proof exists. Exact computations made at earlier
+stages of the project---coefficients of $G_\ell$ for $\ell\le16$ by two independent methods, the
+silver-ratio fibres computed directly in $\Z[\sqrt2]$ without using \STTone, the set recursions of
+Sections~\ref{sec:pet3}--\ref{sec:pet4} for large $k$, and the identities of
+Sections~\ref{sec:stt1}--\ref{sec:stt2} for $m\le300$---agree with every statement. During the
+preparation of this text the formulas, indices and worked examples were checked again against exact
+computation: $\rho_\ell$ for $\ell\le17$, $\Fam_k=M_{2k}$ for $k\le8$, the set recursions of
+Lemma~\ref{lem:Y} and Proposition~\ref{prop:Yclosed} for $k\le200$, and the fibres $\nu_m$ directly in
+$\Z[\sqrt2]$ for $m\le4$. These computations are falsification attempts and reproducibility aids,
+not proofs, and nothing in Sections~\ref{sec:pet1}--\ref{sec:stt3} depends on them.
+
+\subsection{Open questions}
+\begin{enumerate}[label=(\arabic*)]
+\item Describe the coefficients of $G_\ell$ just below the maximum, for instance the second largest
+value and its arguments.
+\item Is there a simpler description of $M_{2k}$, for example one without the partial sums $S_j$?
+\item Determine for which windows, alphabets and recurrences the window lemma
+(Lemma~\ref{lem:window}) keeps a positive margin, and what replaces it otherwise.
+\item Which elements of $\Z[\sqrt2]\setminus\Z$ attain the bound of \STTthree?
+\end{enumerate}
+
+%======================================================================
+\section*{Statement on AI contribution and provenance}
+%======================================================================
+
+The proofs and the principal results of this paper were developed with AI systems, in a staged
+research project directed by a human project owner.
+The following attribution is taken from the project's controlled records; where those records do not
+establish an executor, we say so.
+\begin{itemize}[leftmargin=1.6em]
+\item \emph{Early stages} (the silver-ratio model and the first derivation of the transfer underlying
+\STTone): the executing system is not recorded in the stage reports (\textsc{not established}).
+\item \emph{Stage P7}: OpenAI \texttt{gpt-6-luna} in the Codex environment derived \PETone{} and
+\PETtwo{} for $\ell\ge3$ and the silver-ratio maximum and uniqueness argument used in \STTtwo.
+\item \emph{Stage P8}: Anthropic \texttt{claude-opus-5-5} in Claude Code carried out a model
+certification of P7, extended \PETtwo{} to $\ell=1$, gave the proof of \STTone{} used here (by a
+route different from that of the early stages) and derived \STTthree.
+\item \emph{Stages P9--P10}: DeepSeek \texttt{deepseek-flash} in the DeepSeek Harness carried out a
+prior-art audit and manuscript revision (P9); the executor of the bibliographic follow-up and
+full-text reading (P10) is not established in the records.
+\item \emph{Stage P11}: OpenAI \texttt{gpt-6-luna} in Codex proved the even-length set recursion and
+\PETthree.
+\item \emph{Stage P12}: Anthropic \texttt{claude-opus-5-5} in Claude Code audited P11 and proved the
+explicit parametrization \PETfour.
+\item \emph{Stage P13}: DeepSeek \texttt{deepseek-flash} in the DeepSeek Harness independently
+certified \PETfour{} at the level of the executing model: it is a different provider, model and
+harness from the author of P12. This certification was not blind (the proof was read before it was
+reconstructed) and it is not a human review.
+\item \emph{Stage P14}: a consolidation stage, recorded in its own register as OpenAI
+\texttt{gpt-6.1-terra} in Codex, reconciled the theorem labels, adopted documentary corrections
+(numerical, indexing and wording errata that changed no statement or proof) and assembled the working
+manuscript from which this paper was edited. It was not a new mathematical audit.
+\item \emph{This text} was edited from that working manuscript by Claude (Anthropic), in a session
+configured for the model identifier \texttt{claude-opus-5-5}, the same model identifier as the
+executor of P8 and P12. The editing is not a new independent certification of the proofs. It
+corrected two index errors in side remarks (in Section~\ref{sec:pet1} and
+Remark~\ref{rem:special}) and two bibliographic details (a page range and a misattributed review
+number); none of these affects a statement or a proof.
+\end{itemize}
+Agreement between AI systems is not human peer review, and executor-level independence does not
+imply independence of training. No human has reviewed the proofs, no human proof-verification or
+citation-check certificate exists, and no priority is claimed. No AI system is presented as a human
+author.
+
+\bibliographystyle{amsalpha}
+\bibliography{HGS-SILVER-REFERENCES}
+
+\appendix
+
+%======================================================================
+\section{Worked small cases}\label{app:examples}
+%======================================================================
+
+\subsection*{\texorpdfstring{A.1. $\ell=1,2$}{A.1. l=1,2}}
+$G_1=1+x^2+x^4$, $B_1=1$, $M_1=\{0,2,4\}$. $G_2=(1+x^2+x^4)(1+x^5+x^{10})$, $B_2=1$, with the nine
+distinct exponents $0,2,4,5,7,9,10,12,14$, so $M_2$ has $9$ elements.
+
+\subsection*{\texorpdfstring{A.2. $\ell=3$}{A.2. l=3}}
+Weights $2,5,12$; $D_3=38$, $B_3=2$. By \PETtwo{} with $u_3=12$ and $U=P_4=12$,
+$M_3=\{12,14,24,26\}$. The coefficients $\rho_3(0),\dots,\rho_3(38)$ are
+\[
+1,0,1,0,1,1,0,1,0,1,1,0,2,0,2,0,1,1,0,1,0,1,1,0,2,0,2,0,1,1,0,1,0,1,1,0,1,0,1 .
+\]
+
+\subsection*{\texorpdfstring{A.3. $\ell=4$ ($k=2$)}{A.3. l=4 (k=2)}}
+Here $a=P_6=70$, $c=P_5=29$, $z_1=29$, $z_2=58$, $S_3=5$, $S_4=17$, $D_4=96$, $B_4=2$. \PETfour{}
+gives
+\[
+\begin{aligned}
+&\OL_4=\{12,14\},\ \OL_3=\{24,26\},\ \CC_1=\{29,31,33,34,36,38\},\ \IR_3=\{41,43\},\\
+&\IL_3=\{53,55\},\ \CC_2=\{58,60,62,63,65,67\},\ \OR_3=\{70,72\},\ \OR_4=\{82,84\},
+\end{aligned}
+\]
+$24=16\cdot2-8$ maximizers in all, symmetric about $D_4/2=48$, with $\min M_4=v=12$.
+
+\subsection*{\texorpdfstring{A.4. $m=1$ ($\ell=5$, $s=4$, $P_s=12$)}{A.4. m=1 (l=5, s=4, P\_s=12)}}
+$u_5=(P_7-5)/2=82$ and $U=P_6=70$, so $M_5=\{82,84,152,154\}$. Further $H_1=D_5=P_7+P_6-3=236\equiv-4
+\pmod{12}$. The only maximizer divisible by $12$ is $84=7\cdot12$, so $C_1=7$ and $\nu_1(7)=4$.
+
+\subsection*{\texorpdfstring{A.5. Small $m$}{A.5. Small m}}
+\[
+\begin{array}{c|c|c|c|c}
+m & s & P_s & C_m & N_m\\\hline
+0 & 2 & 2 & 1 & 1\\
+1 & 4 & 12 & 7 & 4\\
+2 & 6 & 70 & 41 & 16\\
+3 & 8 & 408 & 239 & 64\\
+4 & 10 & 2378 & 1393 & 256
+\end{array}
+\]
+For $m=0$ the value $C_0=1$ is one of the three maximizers $0,1,2$.
+
+%======================================================================
+\section{What is and is not established}\label{app:status}
+%======================================================================
+
+\begin{center}
+\small
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}X l l l@{}}
+\toprule
+Statement & Established & Range & Where\\
+\midrule
+$B_\ell=2^{\floor{(\ell-1)/2}}$ and the pair invariant~\eqref{eq:pair} & yes & all $\ell\ge1$ & \PETone\\
+complete list of maximizers & yes & odd $\ell\ge1$ & \PETtwo\\
+number of maximizers, $9$ and $16k-8$ & yes & $k=1$; $k\ge2$ & \PETthree\\
+explicit description of $M_{2k}$ & yes & $k\ge1$ & \PETfour\\
+disjointness of the six families & yes & $k\ge2$ (fails at $k=1$) & Prop.~\ref{prop:order}\\
+$\nu_m(t)=\rho_{4m+1}(tP_{2m+2})$ & yes & $m\ge0$, $t\in\Z$ & \STTone\\
+$\max_t\nu_m(t)=4^m$ & yes & $m\ge0$ & \STTtwo\\
+unique maximizing integer $C_m$ & yes & $m\ge1$ & \STTtwo\\
+$\argmax\nu_0=\{0,1,2\}$ & yes & $m=0$ & \STTtwo\\
+every $\Z[\sqrt2]$-fibre has at most $4^m$ strings & yes & $m\ge0$ & \STTthree\\
+optimality of the parametrization & no & --- & not claimed\\
+coefficients near the maximum, automata, asymptotics & no & --- & not attempted\\
+other recurrences, alphabets, windows & no & --- & not attempted\\
+priority or novelty & no & --- & unresolved, Section~\ref{sec:prior}\\
+human review & no & --- & not requested\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+%======================================================================
+\section{Canonical identifiers, historical labels and computations}\label{app:aliases}
+%======================================================================
+
+The project records used other labels for some theorems. To avoid ambiguity, the canonical
+identifiers of this paper correspond to them as follows; in particular the historical
+``Theorem~C'' and ``Theorem~D'' always denote the silver-ratio transfer and the silver-ratio maximum,
+never the even-length results.
+
+\begin{center}
+\small
+\begin{tabular}{@{}lll@{}}
+\toprule
+Canonical identifier & Content & Historical label\\
+\midrule
+PET-1 & exact maximum coefficient & Theorem A\\
+PET-2 & odd-length maximizers & Theorem B\\
+PET-3 & number of even-length maximizers & even-length count (stage P11)\\
+PET-4 & explicit even-length parametrization & P12-B (``B-LEVEL-3'')\\
+STT-1 & silver-to-Pell transfer & Theorem C\\
+STT-2 & silver maximum and uniqueness & Theorem D\\
+STT-3 & algebraic fibre bound & Corollary E\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\emph{Role of computations.} The project's computer checks recompute, with exact integer arithmetic,
+the degree formula and the gap pattern of Lemma~\ref{lem:shifts}; $B_\ell$ and $M_\ell$ for small
+$\ell$; the two-step recursion~\eqref{eq:twostep} coefficient by coefficient; the silver-ratio fibres
+directly in $\Z[\sqrt2]$; the quantities $C_m$, $z_m$, $H_m$ and the residues of
+Lemma~\ref{lem:residue}; and the families of \PETfour. They cannot establish any statement with a free
+parameter. Their functions are to let a reader falsify a claim cheaply and to make the computations
+cited in Section~\ref{sec:verification} reproducible. A reader who finds a discrepancy between a
+computation and the text should trust neither and re-derive the step by hand.
+
+\end{document}

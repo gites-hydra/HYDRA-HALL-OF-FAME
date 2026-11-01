@@ -1,0 +1,704 @@
+\documentclass[11pt]{amsart}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage[margin=1.1in]{geometry}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdftitle={Fixed-window golden-ratio subset sums and Fibonacci representation counts}}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem*{theoremA}{Theorem A}
+\newtheorem*{theoremB}{Theorem B}
+\newtheorem*{theoremC}{Theorem C}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\numberwithin{equation}{section}
+\raggedbottom
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\val}{v}
+\newcommand{\Rep}{\operatorname{Rep}}
+
+\title[Fixed-window golden-ratio subset sums]{Fixed-window golden-ratio subset sums\\ and Fibonacci representation counts}
+
+\author{HYDRA Research Project}
+\thanks{Human-directed, AI-authored mathematical research. The proofs have not undergone independent human mathematical verification.}
+
+\subjclass[2020]{Primary 11B39; Secondary 11A63, 05A17, 68R15}
+\keywords{golden ratio; base phi; Fibonacci representations; Zeckendorf representation; subset sums; representation function}
+
+\begin{document}
+
+\begin{abstract}
+Let $\varphi=(1+\sqrt5)/2$ and, for $m\ge 0$ and an integer $t$, let $\mu_m(t)$ be the number of
+subsets $S\subseteq\{-2m,\dots,2m\}$ with $\sum_{k\in S}\varphi^k=t$. We prove that
+$\mu_m(t)=R(F_{2m+2}\,t)$ for $0\le t\le L_{2m+1}$, where $R(n)$ is the number of representations of
+$n$ as a sum of distinct Fibonacci numbers, and that $\mu_m(t)=0$ for all other integers $t$; the
+correspondence is an explicit shift of exponents, and the proof uses only the algebraic conjugation
+of $\mathbb{Z}[\varphi]$. Combining this transfer with a symmetry and a forced-digit argument, we
+reduce the extremal problem for $\mu_m$ to results of Koc\'abov\'a, Mas\'akov\'a and Pelantov\'a on
+the maxima of $R$ over intervals of fixed Zeckendorf length. We obtain
+$\max_{t\in\mathbb{Z}}\mu_m(t)=F_{2m+1}$ for every $m\ge 0$, and we show that for $m\ge 2$ the
+maximum is attained exactly at $t\in\{F_{2m},F_{2m+1},2F_{2m},F_{2m+2}\}$. We compare the transfer
+with a theorem of Dekking and van Loon on natural base-$\varphi$ expansions.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}\label{sec:intro}
+
+Every positive integer has a unique finite expansion in base $\varphi=(1+\sqrt5)/2$ with digits
+$0,1$ and no two adjacent ones (Bergman~\cite{Bergman1957}). Without the adjacency restriction an
+integer has infinitely many finite expansions, because the golden mean flip $100\to 011$ (from
+$\varphi^{n+1}=\varphi^n+\varphi^{n-1}$) can be applied indefinitely at the lowest digit.
+Dekking and van Loon~\cite{DekkingVanLoon2024} obtained finite counts by two truncation rules
+(Knott expansions and \emph{natural} expansions) and related the second one to the number $R(n)$
+of representations of $n$ as a sum of distinct Fibonacci numbers, a function with a long history
+\cite{Klarner1966,Robbins1996,BicknellFielder1999,Berstel2001,KMP2005,Stockmeyer2009,ChowSlattery2021}.
+
+In this note we count expansions inside a \emph{fixed} symmetric window of exponents. For
+$m\ge 0$ and $t\in\Z$ put
+\[
+  \mu_m(t)=\#\Bigl\{S\subseteq\{-2m,\dots,2m\}:\ \sum_{k\in S}\varphi^k=t\Bigr\},
+  \qquad M_m=\max_{t\in\Z}\mu_m(t).
+\]
+Equivalently, $\mu_m(t)$ is the number of subsets of $\{\varphi^{-2m},\dots,\varphi^{2m}\}$ whose
+sum is the integer $t$. Our first result identifies $\mu_m$ with a dilated restriction of $R$.
+
+\begin{theoremA}[Theorem~\ref{thm:transfer}]
+For every $m\ge0$ and every integer $t$ with $0\le t\le L_{2m+1}$,
+\[
+  \mu_m(t)=R(F_{2m+2}\,t),
+\]
+and $\mu_m(t)=0$ for all other integers $t$. The bijection behind the identity is the shift
+$S\mapsto S+2m+2$ of exponents.
+\end{theoremA}
+
+The interval in Theorem~A is optimal: for every integer $t>L_{2m+1}$ the left-hand side vanishes
+while $R(F_{2m+2}t)\ge1$. The essential point of the proof is that a shifted digit string must
+reproduce \emph{both} coordinates of $t\varphi^{2m+2}=tF_{2m+2}\varphi+tF_{2m+1}$ in the basis
+$\{\varphi,1\}$; matching the coefficient of $\varphi$ alone is not enough
+(Remark~\ref{rem:onecoef}). We show that inside the stated range the second coordinate is forced by
+a short conjugation estimate (Lemma~\ref{lem:conjbound}).
+
+Theorem~A does not by itself determine $M_m$: the maximum of $R$ over all arguments below
+$F_{4m+3}$ is $F_{2m+2}$, which is larger than the true value. Using a symmetry
+$t\leftrightarrow L_{2m+1}-t$ and the observation that, after this symmetry, every representation has
+two digits fixed, we reduce the problem to windows of $4m-1$ consecutive exponents, where the
+results of Koc\'abov\'a, Mas\'akov\'a and Pelantov\'a~\cite{KMP2005} apply sharply.
+
+\begin{theoremB}[Theorem~\ref{thm:max}]
+For every $m\ge 0$, $M_m=F_{2m+1}$.
+\end{theoremB}
+
+\begin{theoremC}[Theorem~\ref{thm:argmax}]
+For $m\ge2$, $\mu_m(t)=F_{2m+1}$ holds exactly for the four distinct integers
+$t\in\{F_{2m},\,F_{2m+1},\,2F_{2m},\,F_{2m+2}\}$. For $m=0$ the maximizers are $0,1$, and for $m=1$
+they are $1,2,3$.
+\end{theoremC}
+
+\subsection*{Relation to earlier work}
+For integers $t$ whose Bergman expansion reaches the lowest exponent $-2m$ (these are exactly the
+integers with $L_{2m-1}<t\le L_{2m+1}$), the window representations of $t$ are precisely its natural
+expansions, and Theorem~A coincides with \cite[Theorem~4.4]{DekkingVanLoon2024}. For
+$0\le t\le L_{2m-1}$ the window contains expansions that are not natural, and the multiplier
+$F_{2m+2}$ in Theorem~A does not depend on $t$; we did not find this extension in the literature we
+consulted (Section~\ref{sec:prior}). The extremal input for Theorems~B and~C is
+\cite[Theorem~4.7, Lemma~3.1 and Corollary~5.1(i)]{KMP2005}; our contribution there is the reduction
+from the window problem to the Fibonacci problem, including the transfer of the equality cases
+with both coordinates in $\Z[\varphi]$. The lower bound in Theorem~B can also be read off from
+\cite[Theorem~4.3]{DekkingVanLoon2024}; see Remark~\ref{rem:dvl43}. We make no claim of priority
+beyond what is stated here.
+
+\subsection*{Organization}
+Section~\ref{sec:prelim} collects notation and the tools we use, including the translation of the
+results of \cite{KMP2005} into the indexing of this paper. Section~\ref{sec:support} proves the
+support and symmetry properties of $\mu_m$, Section~\ref{sec:transfer} proves Theorem~A,
+Section~\ref{sec:max} proves Theorem~B, and Section~\ref{sec:argmax} proves Theorem~C.
+Section~\ref{sec:examples} lists small cases and boundary examples, Section~\ref{sec:prior} compares
+the results with the literature, and Section~\ref{sec:limits} records limitations and open questions.
+
+\section{Notation and tools}\label{sec:prelim}
+
+\subsection{Fibonacci and Lucas numbers}
+Let $F_0=0$, $F_1=1$, $F_{n+2}=F_{n+1}+F_n$, and $L_0=2$, $L_1=1$, $L_{n+2}=L_{n+1}+L_n$. We extend
+$F_n$ to negative indices by $F_{-n}=(-1)^{n+1}F_n$, so that the recurrence holds for all $n\in\Z$.
+Let $\psi=1-\varphi=-\varphi^{-1}$. Binet's formulas are $F_n=(\varphi^n-\psi^n)/\sqrt5$ and
+$L_n=\varphi^n+\psi^n$. For every $k\in\Z$,
+\begin{equation}\label{eq:powers}
+  \varphi^k=F_k\varphi+F_{k-1},\qquad \psi^k=F_k\psi+F_{k-1}.
+\end{equation}
+We use the following identities, valid for $m\ge0$ (and, in (d), for $m\ge1$):
+\begin{align}
+ &\text{(a)}\ \ \sum_{j=-m}^{m}\varphi^{2j}=L_{2m+1}; \qquad
+  \text{(b)}\ \ F_{2m+2}L_{2m+1}=F_{4m+3}-1; \label{eq:idA}\\
+ &\text{(c)}\ \ L_{2m+1}=F_{2m}+F_{2m+2}=F_{2m+1}+2F_{2m}; \nonumber\\
+ &\text{(d)}\ \ F_{2m}F_{2m+2}=F_{2m+1}^2-1=\sum_{i=1}^{m}F_{4i}; \nonumber\\
+ &\text{(e)}\ \ \varphi^{2m+1}=L_{2m+1}+\varphi^{-2m-1}. \nonumber
+\end{align}
+For (a), note that $\varphi^{2j+1}-\varphi^{2j-1}=\varphi^{2j}(\varphi-\varphi^{-1})=\varphi^{2j}$, so
+the sum telescopes to $\varphi^{2m+1}-\varphi^{-2m-1}=\varphi^{2m+1}+\psi^{2m+1}$. Identity (b) is
+the case $a=2m+1$, $b=2m+2$ of $L_aF_b=F_{a+b}+(-1)^aF_{b-a}$. Identity (c) is
+$L_n=F_{n-1}+F_{n+1}$. In (d) the first equality is Cassini's identity, and the second follows by
+induction from $F_{2m+2}F_{2m+4}-F_{2m}F_{2m+2}=F_{2m+2}L_{2m+2}=F_{4m+4}$. Identity (e) is
+$L_{2m+1}=\varphi^{2m+1}+\psi^{2m+1}$. In particular $L_{2m+1}<\varphi^{2m+1}$, and an integer $t$
+satisfies $t\le L_{2m+1}$ if and only if $t<\varphi^{2m+1}$.
+
+Throughout, we write
+\[
+  C_m:=L_{2m+1}\qquad(m\ge0).
+\]
+
+\subsection{\texorpdfstring{The ring $\Z[\varphi]$}{The ring Z[phi]}}
+Every element of $\Z[\varphi]$ is uniquely $a\varphi+b$ with $a,b\in\Z$, and it is a rational
+number if and only if $a=0$. The conjugation $\sigma(a\varphi+b)=a\psi+b$ is a ring automorphism of
+$\Z[\varphi]$ that fixes $\Z$. For a finite set $S\subseteq\Z$ we write
+\[
+  \val(S)=\sum_{k\in S}\varphi^k\in\Z[\varphi].
+\]
+By \eqref{eq:powers}, $\val(S)\in\Z$ if and only if $\sum_{k\in S}F_k=0$, and an equality
+$\val(S)=\val(S')$ means equality of \emph{both} coordinates in the basis $\{\varphi,1\}$. Since
+$\psi^k=(-1)^k\varphi^{-k}$, the term $\psi^k$ is positive for even $k$ and negative for odd $k$.
+
+\subsection{Fibonacci representations}
+For an integer $n\ge0$ let
+\[
+  \Rep(n)=\Bigl\{A\subseteq\{2,3,4,\dots\}\ \text{finite}:\ \sum_{j\in A}F_j=n\Bigr\},
+  \qquad R(n)=\#\Rep(n).
+\]
+Thus $R(0)=1$ (the empty set), and the values $F_2,F_3,\dots=1,2,3,5,\dots$ are distinct, so $R$
+counts representations of $n$ as sums of distinct Fibonacci numbers; this is sequence A000119
+of~\cite{OEIS}. By Zeckendorf's theorem \cite{Lekkerkerker1952,Zeckendorf1972}, every $n\ge0$ has
+exactly one representation $Z(n)\in\Rep(n)$ containing no two consecutive integers. In particular
+$R(n)\ge1$ for all $n\ge 0$. If $A\in\Rep(n)$ and $n<F_{K+1}$, then $\max A\le K$.
+
+\begin{lemma}[flip consistency]\label{lem:flip}
+If $A,B\subseteq\{2,3,\dots\}$ are finite and $\sum_{j\in A}F_j=\sum_{j\in B}F_j$, then
+$\val(A)=\val(B)$.
+\end{lemma}
+
+\begin{proof}
+Let $n=\sum_{j\in A}F_j$. If $A$ contains two consecutive integers, let $j$ be the largest integer
+with $j,j+1\in A$. Then $j+2\notin A$, since otherwise $j+1,j+2$ would be a higher consecutive pair.
+Put $A'=(A\setminus\{j,j+1\})\cup\{j+2\}$. Because $F_{j+2}=F_{j+1}+F_j$ and
+$\varphi^{j+2}=\varphi^{j+1}+\varphi^j$, the set $A'$ has the same Fibonacci sum and the same value
+$\val(A')=\val(A)$, and it has one element fewer. Iterating, we reach after finitely many steps a set
+without consecutive integers, which is $Z(n)$. Hence $\val(A)=\val(Z(n))$, and likewise
+$\val(B)=\val(Z(n))$.
+\end{proof}
+
+\begin{lemma}[conjugate bound]\label{lem:conjbound}
+For every finite set $A\subseteq\{2,3,\dots\}$,
+\[
+  -\varphi^{-2}<\sum_{j\in A}\psi^j<\varphi^{-1}.
+\]
+\end{lemma}
+
+\begin{proof}
+The positive terms come from even $j\ge2$; their sum is less than
+$\sum_{i\ge1}\varphi^{-2i}=1/(\varphi^2-1)=\varphi^{-1}$. The negative terms come from odd $j\ge3$; their
+sum exceeds $-\sum_{i\ge1}\varphi^{-2i-1}=-\varphi^{-1}\cdot\varphi^{-1}=-\varphi^{-2}$. Both
+inequalities are strict because $A$ is finite.
+\end{proof}
+
+\subsection{\texorpdfstring{Maxima of $R$ on Zeckendorf-length intervals}{Maxima of R on Zeckendorf-length intervals}}
+Koc\'abov\'a, Mas\'akov\'a and Pelantov\'a~\cite{KMP2005} index the Fibonacci numbers by
+$F_0=F_1=1$; their $F_j$ is our $F_{j+1}$, and their function $R$ coincides with ours. Their
+$\operatorname{Max}(\ell)$ is the maximum of $R$ over $[F^{\mathrm{KMP}}_\ell,F^{\mathrm{KMP}}_{\ell+1})
+=[F_{\ell+1},F_{\ell+2})$, the set of integers whose Zeckendorf word has length $\ell$. A Zeckendorf
+word is written $1\,0^{r_1}\,1\,0^{r_2}\cdots 1\,0^{r_l}$ from the most significant digit, so that
+$r_l\ge0$ is the number of trailing zeros. In our indexing the following statements are
+\cite[Theorem~4.7]{KMP2005}, \cite[Lemma~3.1(2)]{KMP2005} and \cite[Corollary~5.1(i)]{KMP2005}.
+
+\begin{theorem}[\cite{KMP2005}]\label{thm:kmp}
+For $\ell\ge1$ let $\mathcal M(\ell)=\max\{R(n):F_{\ell+1}\le n<F_{\ell+2}\}$.
+\begin{enumerate}
+\item[(a)] $\mathcal M(2h+1)=F_{h+2}$ for $h\ge0$, $\mathcal M(2h+2)=2F_{h+1}$ for $h\ge1$, and
+$\mathcal M(2)=1$.
+\item[(b)] For $k\ge1$, $\mathcal M(4k+3)$ is attained at exactly two integers. Their Zeckendorf
+words have zero-block lengths $(r_1,\dots,r_l)=(1,3,\dots,3,4)$ with $k-1$ entries $3$, and
+$(3,\dots,3,2)$ with $k$ entries $3$.
+\end{enumerate}
+\end{theorem}
+
+For $m\ge1$ put
+\[
+  x_m=\sum_{i=1}^{m}F_{4i}=F_{2m}F_{2m+2},\qquad
+  x_m'=\sum_{i=1}^{m-1}F_{4i+2}+F_{4m}.
+\]
+A word of length $4m-1=4(m-1)+3$ ends at our index $2$ and begins at our index $4m$. The word with
+zero blocks $(3,\dots,3,2)$ has its ones at our indices $4,8,\dots,4m$, so it is $Z(x_m)$; the word
+with zero blocks $(1,3,\dots,3,4)$ has its ones at $6,10,\dots,4m-2$ and $4m$, so it is $Z(x_m')$.
+Summing even-indexed Fibonacci numbers gives $x_m+x_m'=F_{4m+2}-2$.
+
+\begin{corollary}\label{cor:kmp}
+Let $n=2q+1\ge1$.
+\begin{enumerate}
+\item[(a)] $R(u)\le F_{q+2}$ for every integer $0\le u<F_{n+2}$.
+\item[(b)] If $m\ge2$, $0\le u<F_{4m+1}$ and $R(u)=F_{2m+1}$, then $u\in\{x_m,x_m'\}$.
+\item[(c)] $R(x_m)=F_{2m+1}$ for every $m\ge1$.
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+(a) We have $R(0)=1$. If $u\ge1$, then $F_{\ell+1}\le u<F_{\ell+2}$ for a unique $\ell$ with
+$1\le\ell\le n$, and $R(u)\le\mathcal M(\ell)$. For odd $\ell=2h+1\le 2q+1$ this is
+$F_{h+2}\le F_{q+2}$. For even $\ell=2h+2\le2q$ with $h\ge1$ it is $2F_{h+1}\le2F_q\le F_{q+2}$, and
+$\mathcal M(2)=1$.
+
+(b) Here $q=2m-1$ and $F_{q+2}=F_{2m+1}$. If $\ell\le 4m-2$, then the bounds in (a) give at most
+$F_{2m}$ for odd $\ell$ and at most $2F_{2m-1}$ for even $\ell$; both are smaller than
+$F_{2m+1}=F_{2m}+F_{2m-1}$ because $F_{2m-1}<F_{2m}$ for $m\ge2$. Also $R(0)=\mathcal M(2)=1$. Hence
+$R(u)=F_{2m+1}$ forces $\ell=4m-1$, and Theorem~\ref{thm:kmp}(b) with $k=m-1\ge1$ leaves only the two
+words described above, namely $Z(x_m)$ and $Z(x_m')$.
+
+(c) For $m=1$, $x_1=3$ and $R(3)=2=F_3$. For $m\ge2$, \cite[Lemma~3.1(2)]{KMP2005} gives the value
+$F_{2m+1}$ for the word with zero blocks $(3,\dots,3,2)$, which is $Z(x_m)$; this is also the
+statement $\operatorname{Max}(4k+3)=\varrho(3,\dots,3,2)$ in \cite[Corollary~5.1(i)]{KMP2005}.
+\end{proof}
+
+\begin{remark}
+The value $R(F_{2m+1}^2-1)=F_{2m+1}$ is also contained in a result of
+Bicknell-Johnson~\cite{BicknellJohnson1999} on the smallest integer with a prescribed number of
+representations, as noted in \cite[Remark after
+Proposition~5.4]{KMP2005}, and it is an equality case of Stockmeyer's bound
+$R(n)\le\sqrt{n+1}$~\cite{Stockmeyer2009}.
+\end{remark}
+
+\section{Support and symmetry}\label{sec:support}
+
+\begin{lemma}[support]\label{lem:support}
+Let $m\ge0$ and $S\subseteq\{-2m,\dots,2m\}$ with $\val(S)=t\in\Z$. Then $0\le t\le C_m$. If
+moreover $m\ge1$ and $S\subseteq\{-2m+1,\dots,2m-1\}$, then $t\le C_{m-1}$.
+\end{lemma}
+
+\begin{proof}
+All powers of $\varphi$ are positive, so $t\ge0$. Since $\sigma$ fixes integers,
+$t=\sigma(t)=\sum_{k\in S}\psi^k$. Discarding the negative terms (odd $k$) and adding the missing
+positive terms (even $k$ in the window), we obtain
+$t\le\sum_{j=-m}^{m}\varphi^{-2j}=C_m$ by \eqref{eq:idA}(a). In the second case the even exponents
+available are $-2m+2,\dots,2m-2$, which gives $t\le C_{m-1}$.
+\end{proof}
+
+\begin{lemma}[symmetry]\label{lem:sym}
+For all $m\ge0$ and $t\in\Z$, $\mu_m(t)=\mu_m(C_m-t)$.
+\end{lemma}
+
+\begin{proof}
+Let $E$ be the set of even integers in $[-2m,2m]$ and, for $S\subseteq[-2m,2m]$, put
+$S^*=\{-k:k\in S\mathbin{\triangle}E\}$. The map $S\mapsto S^*$ is an involution of the subsets of
+the window. Using $\varphi^{-k}=\psi^k$ for even $k$ and $\varphi^{-k}=-\psi^k$ for odd $k$,
+\[
+  \val(S^*)=\sum_{k\in E\setminus S}\psi^k-\sum_{k\in S\setminus E}\psi^k
+  =\sum_{k\in E}\psi^k-\sum_{k\in S}\psi^k=\sigma(C_m)-\sigma(\val(S))=C_m-\sigma(\val(S)).
+\]
+If $\val(S)=t\in\Z$, then $\val(S^*)=C_m-t$.
+\end{proof}
+
+\section{The fixed-window transfer}\label{sec:transfer}
+
+\begin{theorem}\label{thm:transfer}
+Let $m\ge0$, $s=2m+2$, and let $t$ be an integer with $0\le t\le C_m$. Then $S\mapsto S+s$ is a
+bijection from $\{S\subseteq\{-2m,\dots,2m\}:\val(S)=t\}$ onto $\Rep(F_s t)$. In particular,
+\[
+  \mu_m(t)=R(F_{2m+2}\,t)\qquad(0\le t\le C_m).
+\]
+\end{theorem}
+
+\begin{proof}
+\emph{The map is well defined and injective.} If $\val(S)=t$, then $S+s\subseteq\{2,\dots,4m+2\}$
+and $\val(S+s)=t\varphi^s=tF_s\varphi+tF_{s-1}$. Comparing the coefficients of $\varphi$ by
+\eqref{eq:powers} gives $\sum_{j\in S+s}F_j=tF_s$, so $S+s\in\Rep(F_st)$. Injectivity is clear.
+
+\emph{The map is surjective.} Let $A\in\Rep(F_st)$. First, $F_{\max A}\le tF_s\le C_mF_s=F_{4m+3}-1$ by
+\eqref{eq:idA}(b), so $A\subseteq\{2,\dots,4m+2\}$. Next, by \eqref{eq:powers},
+$\val(A)=tF_s\varphi+b$ with $b=\sum_{j\in A}F_{j-1}\in\Z$. Hence
+\[
+  n:=\val(A)-t\varphi^s=b-tF_{s-1}\in\Z.
+\]
+Applying $\sigma$ gives $n=\sum_{j\in A}\psi^j-t\psi^s$. Since $s$ is even, $t\psi^s=t\varphi^{-s}$,
+and since $t\le C_m<\varphi^{2m+1}$ by \eqref{eq:idA}(e),
+\[
+  0\le t\varphi^{-s}<\varphi^{2m+1}\varphi^{-2m-2}=\varphi^{-1}.
+\]
+Together with Lemma~\ref{lem:conjbound} this yields
+$-1=-\varphi^{-2}-\varphi^{-1}<n<\varphi^{-1}<1$, so $n=0$ and $\val(A)=t\varphi^s$. The set
+$S=A-s$ is contained in $\{-2m,\dots,2m\}$ and satisfies $\val(S)=\varphi^{-s}\val(A)=t$, and
+$S+s=A$.
+\end{proof}
+
+\begin{corollary}\label{cor:support}
+Let $m\ge0$.
+\begin{enumerate}
+\item[(a)] $\mu_m(t)>0$ if and only if $t\in\{0,1,\dots,C_m\}$.
+\item[(b)] For an integer $t\ge0$, the identity $\mu_m(t)=R(F_{2m+2}t)$ holds if and only if
+$t\le C_m$.
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+By Lemma~\ref{lem:support}, $\mu_m(t)=0$ unless $0\le t\le C_m$. For $0\le t\le C_m$,
+Theorem~\ref{thm:transfer} gives $\mu_m(t)=R(F_{2m+2}t)\ge1$. For $t>C_m$ we have $\mu_m(t)=0<1\le
+R(F_{2m+2}t)$.
+\end{proof}
+
+\begin{remark}[one coefficient is not enough]\label{rem:onecoef}
+Take $m=1$, $t=5>C_1=4$ and $S=\{-1,1,2\}$. Then $S+4=\{3,5,6\}$ and $F_3+F_5+F_6=15=5F_4$, but
+$\val(S)=\varphi^{-1}+\varphi+\varphi^2=3\varphi$. The constant coordinates differ:
+$F_2+F_4+F_5=9\neq 5F_3=10$; in the notation of the proof of Theorem~\ref{thm:transfer}, $n=-1$.
+Thus the coefficient of $\varphi$ alone does not identify the value, and the hypothesis
+$t\le C_m$ is exactly what forces the second coordinate.
+\end{remark}
+
+\begin{remark}[an alternative argument]\label{rem:altproof}
+Surjectivity can also be derived from Lemma~\ref{lem:flip}. If $t$ has one representation $S_0$ in
+the window (for instance, for $1\le t\le C_m$ its Bergman expansion lies in the window by
+\cite[Proposition~5.1(b)]{DekkingVanLoon2024} and $\varphi^{2m+1}>C_m$), then every $A\in\Rep(F_st)$
+satisfies $\val(A)=\val(S_0+s)=t\varphi^s$ by Lemma~\ref{lem:flip}. The proof given above avoids
+this input and yields the existence of a window representation as a by-product.
+\end{remark}
+
+\begin{remark}[natural expansions]\label{rem:natural}
+For an integer $t\ge1$ let $-\rho(t)$ be the lowest exponent of its Bergman expansion. Dekking and
+van Loon call an expansion of $t$ \emph{natural} if it does not end in the digits $011$ and its
+lowest exponent is $-\rho(t)$, and they prove $\mathrm{Tot}_\nu(t)=R(F_{\rho(t)+2}\,t)$ for $t>3$,
+where $\mathrm{Tot}_\nu(t)$ is the number of natural expansions
+\cite[Theorem~4.4]{DekkingVanLoon2024}. By \cite[Proposition~5.1(b)]{DekkingVanLoon2024},
+$\rho(t)=2m$ exactly when $C_{m-1}<t\le C_m$. For such $t$ every expansion has lowest exponent at most
+$-2m$ and highest exponent at most that of the Bergman expansion, because every expansion arises from
+the Bergman expansion by golden mean flips \cite[Theorem~2.1]{DekkingVanLoon2024}. Hence a window
+expansion of $t$ has lowest exponent exactly $-2m$; it cannot end in $011$, since undoing that final
+flip would produce an expansion with a higher lowest exponent. Conversely, every natural expansion
+lies in the window, since its highest exponent is at most that of the Bergman expansion, which is at
+most $2m$ because $t<\varphi^{2m+1}$. So for $C_{m-1}<t\le C_m$ the window representations are exactly the natural
+expansions and Theorem~\ref{thm:transfer} coincides with \cite[Theorem~4.4]{DekkingVanLoon2024}. For
+$0\le t\le C_{m-1}$ the two statements differ. For example, for $m=2$ and $t=4$ we have
+$\rho(4)=2$ and $\mathrm{Tot}_\nu(4)=R(12)=1$, whereas $\mu_2(4)=R(32)=4$, the four window
+representations being
+\[
+  \{2,0,-2\},\quad \{2,0,-3,-4\},\quad \{2,-1,-2,-3,-4\},\quad \{1,0,-1,-2,-3,-4\}.
+\]
+\end{remark}
+
+\section{The exact maximum}\label{sec:max}
+
+For a finite set $W\subseteq\Z$ and $x\in\R$ let $N_W(x)=\#\{S\subseteq W:\val(S)=x\}$.
+
+\begin{lemma}[fibres on odd windows]\label{lem:fibre}
+Let $a\in\Z$, $n=2q+1\ge1$ and $W=\{a,a+1,\dots,a+n-1\}$. Then $N_W(x)\le F_{q+2}$ for every
+$x\in\R$.
+\end{lemma}
+
+\begin{proof}
+Multiplication by $\varphi^{2-a}$ maps the subsets of $W$ bijectively onto the subsets of
+$W'=\{2,\dots,n+1\}$ and multiplies values by $\varphi^{2-a}$, so we may assume $W=W'$. If $N_W(x)=0$
+there is nothing to prove. Otherwise $x\in\Z[\varphi]$, and all $S$ with $\val(S)=x$ have the same
+coefficient $U=\sum_{j\in S}F_j$ of $\varphi$. The complement map $S\mapsto W\setminus S$ is a
+bijection from the fibre of $x$ onto the fibre of $\val(W)-x$, and it replaces $U$ by $U_W-U$, where
+$U_W=\sum_{j=2}^{n+1}F_j=F_{n+3}-2$. Replacing $x$ by $\val(W)-x$ if necessary, we may assume
+$U\le U_W/2<F_{n+2}$. The identity map sends the fibre of $x$ injectively into $\Rep(U)$. Hence
+$N_W(x)\le R(U)\le F_{q+2}$ by Corollary~\ref{cor:kmp}(a).
+\end{proof}
+
+\begin{theorem}\label{thm:upper}
+For all $m\ge0$ and $t\in\Z$, $\mu_m(t)\le F_{2m+1}$.
+\end{theorem}
+
+\begin{proof}
+For $m=0$ the only subsets are $\emptyset$ and $\{0\}$, so $\mu_0\le1=F_1$. Let $m\ge1$. By
+Lemma~\ref{lem:support} we may assume $0\le t\le C_m$, and by Lemma~\ref{lem:sym} we may replace $t$
+by $s=\min(t,C_m-t)$, so that $0\le s\le C_m/2$. Let $S$ be a window representation of $s$. Since
+$C_m<\varphi^{2m+1}<2\varphi^{2m}$, we have $s<\varphi^{2m}$, so $2m\notin S$.
+
+\emph{Case I: $s\le C_{m-1}$.} As $C_{m-1}<\varphi^{2m-1}$ by \eqref{eq:idA}(e), also $2m-1\notin S$.
+Thus $\mu_m(s)=N_W(s)$ with $W=\{-2m,\dots,2m-2\}$, a window of $4m-1$ consecutive integers, and
+Lemma~\ref{lem:fibre} with $q=2m-1$ gives $\mu_m(s)\le F_{2m+1}$.
+
+\emph{Case II: $s>C_{m-1}$.} Then $-2m\in S$, for otherwise $S\subseteq\{-2m+1,\dots,2m-1\}$ and
+$s\le C_{m-1}$ by Lemma~\ref{lem:support}. Hence $S\mapsto S\setminus\{-2m\}$ is a bijection from the
+window representations of $s$ onto the subsets of $W=\{-2m+1,\dots,2m-1\}$ with value
+$s-\varphi^{-2m}$, and Lemma~\ref{lem:fibre} again gives $\mu_m(s)\le F_{2m+1}$.
+\end{proof}
+
+\begin{proposition}\label{prop:attain}
+For $m\ge1$,
+\[
+  \mu_m(F_{2m})=\mu_m(F_{2m+1})=\mu_m(2F_{2m})=\mu_m(F_{2m+2})=F_{2m+1}.
+\]
+\end{proposition}
+
+\begin{proof}
+Since $F_{2m}\le C_m$, Theorem~\ref{thm:transfer}, identity \eqref{eq:idA}(d) and
+Corollary~\ref{cor:kmp}(c) give
+\[
+  \mu_m(F_{2m})=R(F_{2m}F_{2m+2})=R(x_m)=F_{2m+1}.
+\]
+As $C_m-F_{2m}=F_{2m+2}$ by \eqref{eq:idA}(c), Lemma~\ref{lem:sym} gives the same value at
+$F_{2m+2}$.
+
+Now let $s=F_{2m+1}$. We have $C_{m-1}=F_{2m-2}+F_{2m}<F_{2m+1}$ and $F_{2m+1}\le2F_{2m}$, so
+$C_{m-1}<s\le C_m/2$. By Case~II of the proof of Theorem~\ref{thm:upper}, $\mu_m(s)=N_W(s-\varphi^{-2m})$
+with $W=\{-2m+1,\dots,2m-1\}$. Multiplying by $\varphi^{2m+1}$ maps $W$ onto $\{2,\dots,4m\}$ and the
+value $s-\varphi^{-2m}$ onto
+\[
+  y=F_{2m+1}\varphi^{2m+1}-\varphi=(F_{2m+1}^2-1)\varphi+F_{2m+1}F_{2m}.
+\]
+By \eqref{eq:idA}(d) this equals $F_{2m}F_{2m+2}\varphi+F_{2m}F_{2m+1}=F_{2m}\varphi^{2m+2}$, and
+\[
+  \val(Z(x_m))=\sum_{i=1}^{m}\varphi^{4i}=\varphi^4\,\frac{\varphi^{4m}-1}{\varphi^4-1}
+  =\varphi^{2}\,\frac{\varphi^{4m}-1}{\sqrt5}=\varphi^{2m+2}F_{2m},
+\]
+using $\varphi^4-1=\sqrt5\,\varphi^2$ and Binet's formula. So the fibre of $y$ on $\{2,\dots,4m\}$
+contains $Z(x_m)$. Since $x_m<F_{4m+1}$, every $A\in\Rep(x_m)$ lies in $\{2,\dots,4m\}$, and by
+Lemma~\ref{lem:flip} it satisfies $\val(A)=\val(Z(x_m))=y$. Therefore the injection of the fibre of
+$y$ into $\Rep(x_m)$ is a bijection, and $\mu_m(F_{2m+1})=R(x_m)=F_{2m+1}$. Finally
+$C_m-F_{2m+1}=2F_{2m}$, and Lemma~\ref{lem:sym} gives the value at $2F_{2m}$.
+\end{proof}
+
+\begin{theorem}\label{thm:max}
+For every $m\ge0$, $M_m=F_{2m+1}$.
+\end{theorem}
+
+\begin{proof}
+For $m=0$, $\mu_0(0)=\mu_0(1)=1=F_1$. For $m\ge1$ combine Theorem~\ref{thm:upper} and
+Proposition~\ref{prop:attain}.
+\end{proof}
+
+\begin{remark}[attainment via natural expansions]\label{rem:dvl43}
+For $m\ge1$ the integers $F_{2m+1}$ and $F_{2m+2}$ lie in $(C_{m-1},C_m]$, so by
+Remark~\ref{rem:natural} their window representations are their natural expansions, and
+\cite[Theorem~4.3]{DekkingVanLoon2024} gives
+$\mu_m(F_{2m+2})=\mathrm{Tot}_\nu(F_{2m+2})=F_{2m+1}$ and
+$\mu_m(F_{2m+1})=\mathrm{Tot}_\nu(F_{2m+1})=F_{2m+1}$. This yields an independent route to the lower
+bound in Theorem~\ref{thm:max}.
+\end{remark}
+
+\section{Classification of the maximizers}\label{sec:argmax}
+
+For $m\ge2$ put
+\[
+  Q_m=\sum_{i=0}^{m-1}\varphi^{4i+2},\qquad T_m=\sum_{j=0}^{4m-2}\varphi^{j}.
+\]
+As in the proof of Proposition~\ref{prop:attain}, $Q_m=\varphi^{2m}F_{2m}$, and
+$T_m=(\varphi^{4m-1}-1)/(\varphi-1)=\varphi^{4m}-\varphi$. Grouping the terms of $T_m-Q_m$ (the
+exponents in $\{0,\dots,4m-2\}$ not congruent to $2$ modulo $4$) and using
+$\varphi^{j}+\varphi^{j+1}=\varphi^{j+2}$ twice, we obtain
+\begin{equation}\label{eq:TQ}
+  T_m-Q_m=\sum_{i=0}^{m-1}\varphi^{4i+2}+\sum_{i=0}^{m-2}\varphi^{4i+3}
+  =\sum_{i=1}^{m-1}\varphi^{4i}+\varphi^{4m-2}.
+\end{equation}
+
+\begin{lemma}[equality in Lemma~\ref{lem:fibre}]\label{lem:equality}
+Let $m\ge2$, $W=\{0,1,\dots,4m-2\}$ and $x\in\R$ with $N_W(x)=F_{2m+1}$. Then
+$x\in\{Q_m,\,T_m-Q_m\}$.
+\end{lemma}
+
+\begin{proof}
+Follow the proof of Lemma~\ref{lem:fibre} with $n=4m-1$ after multiplying by $\varphi^2$, which maps
+$W$ onto $\{2,\dots,4m\}$. Let $x'\in\{x,T_m-x\}$ be the value for which $U\le U_W/2$. Then
+$F_{2m+1}=N_W(x')\le R(U)\le F_{2m+1}$ with $U<F_{4m+1}$, so $R(U)=F_{2m+1}$ and $U\in\{x_m,x_m'\}$ by
+Corollary~\ref{cor:kmp}(b). Moreover, the injection of the fibre of $\varphi^2x'$ into $\Rep(U)$ is a
+bijection between finite sets of equal size; in particular $Z(U)$ is the image of a subset in the
+fibre, so $\varphi^2x'=\val(Z(U))$. Now $\val(Z(x_m))=\sum_{i=1}^m\varphi^{4i}=\varphi^2Q_m$, and by
+\eqref{eq:TQ}, $\val(Z(x_m'))=\sum_{i=1}^{m-1}\varphi^{4i+2}+\varphi^{4m}=\varphi^2(T_m-Q_m)$. Hence
+$x'\in\{Q_m,T_m-Q_m\}$, and since the complement interchanges these two values, also
+$x\in\{Q_m,T_m-Q_m\}$.
+\end{proof}
+
+\begin{theorem}\label{thm:argmax}
+Let $m\ge2$. Then $\mu_m(t)=F_{2m+1}$ if and only if $t\in\{F_{2m},F_{2m+1},2F_{2m},F_{2m+2}\}$, and
+these four integers are distinct. For $m=0$ the maximizers are $0,1$; for $m=1$ they are $1,2,3$.
+\end{theorem}
+
+\begin{proof}
+For $m=0$ see Theorem~\ref{thm:max}. For $m=1$, a direct enumeration of the $32$ subsets of
+$\{-2,\dots,2\}$ gives $(\mu_1(0),\dots,\mu_1(4))=(1,2,2,2,1)$.
+
+Let $m\ge2$. The four values are attained by Proposition~\ref{prop:attain}, and
+$F_{2m}<F_{2m+1}<2F_{2m}<F_{2m+2}$ because $F_{2m-1}<F_{2m}$. Conversely, suppose
+$\mu_m(t)=F_{2m+1}$ and let $s=\min(t,C_m-t)$, so that $\mu_m(s)=F_{2m+1}$ by
+Lemma~\ref{lem:sym}. We use the two cases of the proof of Theorem~\ref{thm:upper}, together with
+\eqref{eq:powers} and $F_{-n}=(-1)^{n+1}F_n$, which give
+\[
+  \varphi^{-2m}=-F_{2m}\varphi+F_{2m+1},\qquad \varphi^{1-2m}=F_{2m-1}\varphi-F_{2m},\qquad
+  \varphi^{2-2m}=-F_{2m-2}\varphi+F_{2m-1}.
+\]
+
+\emph{Case I: $s\le C_{m-1}$.} The fibre of $s$ on $\{-2m,\dots,2m-2\}$ has $F_{2m+1}$ elements;
+multiplying by $\varphi^{2m}$ and applying Lemma~\ref{lem:equality} gives
+$s\in\{\varphi^{-2m}Q_m,\ \varphi^{-2m}(T_m-Q_m)\}$. Here $\varphi^{-2m}Q_m=F_{2m}$, while
+\[
+  \varphi^{-2m}(T_m-Q_m)=\varphi^{2m}-\varphi^{1-2m}-F_{2m}=F_{2m-2}\varphi+F_{2m-1}
+\]
+is irrational since $F_{2m-2}\ge1$. Hence $s=F_{2m}$.
+
+\emph{Case II: $s>C_{m-1}$.} The fibre of $s-\varphi^{-2m}$ on $\{-2m+1,\dots,2m-1\}$ has $F_{2m+1}$
+elements; multiplying by $\varphi^{2m-1}$ and applying Lemma~\ref{lem:equality} gives
+$s\in\{\varphi^{-2m}+\varphi^{1-2m}Q_m,\ \varphi^{-2m}+\varphi^{1-2m}(T_m-Q_m)\}$. The first value is
+$\varphi^{-2m}+F_{2m}\varphi=F_{2m+1}$. For the second,
+\[
+  \varphi^{-2m}+\varphi^{2m+1}-\varphi^{2-2m}-F_{2m}\varphi
+  =(F_{2m+1}+F_{2m-2}-2F_{2m})\varphi+(F_{2m+1}+F_{2m}-F_{2m-1})=2F_{2m},
+\]
+because $F_{2m+1}+F_{2m-2}-2F_{2m}=F_{2m-1}+F_{2m-2}-F_{2m}=0$ and
+$F_{2m+1}+F_{2m}-F_{2m-1}=F_{2m+1}+F_{2m-2}=2F_{2m}$. Since $C_m=F_{2m+1}+2F_{2m}$ and
+$2F_{2m}>F_{2m+1}$, the value $2F_{2m}$ exceeds $C_m/2$, so $s=F_{2m+1}$.
+
+Thus $s\in\{F_{2m},F_{2m+1}\}$, and $t\in\{s,C_m-s\}=\{F_{2m},F_{2m+1},F_{2m+2},2F_{2m}\}$.
+\end{proof}
+
+\begin{remark}
+Theorem~\ref{thm:argmax} for $m\ge2$ uses the equality classification
+\cite[Corollary~5.1(i)]{KMP2005}, which requires $k=m-1\ge1$. For $m=1$ the general formula gives
+the multiset $\{F_2,F_3,2F_2,F_4\}=\{1,2,2,3\}$, which agrees with the three maximizers $1,2,3$.
+\end{remark}
+
+\section{Small cases and boundary examples}\label{sec:examples}
+
+Table~\ref{tab:small} lists $\mu_m(t)$ for $m\le3$, and Table~\ref{tab:max} lists $M_m$ and the set
+of maximizers for $m\le7$. Both tables were computed by exact enumeration with integer pairs
+$(a,b)$ representing $a\varphi+b$; they agree with Theorems~\ref{thm:transfer}, \ref{thm:max}
+and~\ref{thm:argmax}, and they are not used in any proof.
+
+\begin{table}[ht]
+\caption{Values of $\mu_m(t)$ for $0\le t\le C_m$.}\label{tab:small}
+\centering
+\begin{tabular}{@{}rrl@{}}
+\toprule
+$m$ & $C_m$ & $\mu_m(0),\mu_m(1),\dots,\mu_m(C_m)$\\
+\midrule
+$0$ & $1$ & $1,1$\\
+$1$ & $4$ & $1,2,2,2,1$\\
+$2$ & $11$ & $1,3,4,5,4,5,5,4,5,4,3,1$\\
+$3$ & $29$ & $1,4,6,8,7,10,10,9,13,12,11,6,10,13,12,$\\
+    &      & $12,13,10,6,11,12,13,9,10,10,7,8,6,4,1$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[ht]
+\caption{The maximum $M_m$ and the maximizers of $\mu_m$.}\label{tab:max}
+\centering
+\begin{tabular}{@{}rrl@{}}
+\toprule
+$m$ & $M_m$ & maximizers\\
+\midrule
+$0$ & $1$ & $0,1$\\
+$1$ & $2$ & $1,2,3$\\
+$2$ & $5$ & $3,5,6,8$\\
+$3$ & $13$ & $8,13,16,21$\\
+$4$ & $34$ & $21,34,42,55$\\
+$5$ & $89$ & $55,89,110,144$\\
+$6$ & $233$ & $144,233,288,377$\\
+$7$ & $610$ & $377,610,754,987$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{example}
+For $m=2$ we have $x_2=F_4+F_8=24$ and $x_2'=F_6+F_8=29$, and $R(24)=R(29)=5$. Theorem~\ref{thm:transfer}
+gives $\mu_2(3)=R(3F_6)=R(24)=5$; in the proof of Proposition~\ref{prop:attain} the integer
+$t=5=F_5$ falls into Case~II, with $U=F_5^2-1=24$. The values $t=6$ and $t=8$ are the reflections
+$C_2-5$ and $C_2-3$.
+\end{example}
+
+\begin{example}[boundary]
+For every $m$, $\mu_m(C_m)=\mu_m(0)=1=R(F_{2m+2}C_m)=R(F_{4m+3}-1)$, and $\mu_m(C_m+1)=0$ while
+$R(F_{2m+2}(C_m+1))\ge1$. For $m=1$, Remark~\ref{rem:onecoef} exhibits a window subset whose shift is a
+Fibonacci representation of $5F_4=15$ although its value is $3\varphi$.
+\end{example}
+
+\section{Comparison with earlier work}\label{sec:prior}
+
+\emph{Dekking and van Loon~\cite{DekkingVanLoon2024}.} This is the closest source. Their
+Theorem~4.4 is a transfer of the same type as Theorem~\ref{thm:transfer}, obtained by multiplying by
+a power of $\varphi$; it counts natural expansions and uses the multiplier $F_{\rho(t)+2}$, which
+depends on $t$. As explained in Remark~\ref{rem:natural}, the two statements coincide for
+$C_{m-1}<t\le C_m$ and differ for $t\le C_{m-1}$, where the window also contains expansions that are
+not natural. Their Theorem~4.3 gives the values at $F_{2m+1}$ and $F_{2m+2}$ used in
+Remark~\ref{rem:dvl43}. Their paper does not study maxima of the counting functions.
+
+\emph{Koc\'abov\'a, Mas\'akov\'a and Pelantov\'a~\cite{KMP2005}.} They determine the maximum of $R$ on
+every interval $[F_{\ell+1},F_{\ell+2})$ and classify its arguments. Theorems~\ref{thm:max}
+and~\ref{thm:argmax} use their Theorem~4.7, Lemma~3.1 and Corollary~5.1(i); without them our proofs
+are incomplete. Their work does not involve powers of $\varphi$ or windows of exponents; the link is
+provided by Lemma~\ref{lem:fibre}, by the forced digits in the proof of Theorem~\ref{thm:upper}, and by
+Lemma~\ref{lem:equality}, which keeps track of both coordinates in $\Z[\varphi]$.
+
+\emph{Other work on $R$.} Recursions and matrix formulas for $R$ go back to
+\cite{Klarner1966,Robbins1996,BicknellFielder1999,Berstel2001}; Stockmeyer~\cite{Stockmeyer2009}
+proved $R(n)\le\sqrt{n+1}$ with equality exactly at $n=F_k^2-1$, which contains
+Corollary~\ref{cor:kmp}(c); Chow and Slattery~\cite{ChowSlattery2021} and Sanna~\cite{Sanna2025}
+studied averages and power sums of $R$. None of these concerns windows of powers of $\varphi$.
+
+\emph{Base-$\varphi$ representations and numeration systems.} Frougny and
+Sakarovitch~\cite{FrougnySakarovitch1993} construct a finite automaton converting Fibonacci
+representations into $\varphi$-expansions, and Frougny and Solomyak~\cite{FrougnySolomyak1992} study
+finiteness and normalization of $\beta$-expansions. Normalization maps all representations of a
+number to one normal form and therefore does not by itself give an equality of counts. Further
+properties of $\varphi$-representations were proved with the Walnut theorem prover by
+Shallit~\cite{Shallit2025} and by Shallit and Vukusic~\cite{ShallitVukusic2026}, and the structure of
+the digits of base-$\varphi$ expansions is studied in \cite{Dekking2024Structure}; the extension of
+\cite{KMP2005} to $m$-bonacci systems is \cite{KMP2007}.
+
+Within the sources listed above we did not find Theorem~\ref{thm:transfer} for
+$0\le t\le C_{m-1}$, Theorem~\ref{thm:max}, or Theorem~\ref{thm:argmax}. Our literature search did not
+include a systematic search of MathSciNet or zbMATH, so this statement should be read as a report on
+the sources consulted, not as a claim of priority.
+
+\section{Limitations and further questions}\label{sec:limits}
+
+The proofs of Theorems~\ref{thm:max} and~\ref{thm:argmax} rely on the published results
+\cite[Theorem~4.7, Lemma~3.1, Corollary~5.1(i)]{KMP2005}, which we use as stated and do not reprove.
+Theorem~\ref{thm:transfer} and Corollary~\ref{cor:support} are self-contained apart from Zeckendorf's
+theorem. Exact computer checks confirm the statements of Theorems~\ref{thm:transfer},
+\ref{thm:max} and~\ref{thm:argmax} for $m\le7$ by complete enumeration, the conclusion of
+Theorem~\ref{thm:transfer} for the Zeckendorf representations of $F_{2m+2}t$ for all $t\le C_m$ and
+$m\le12$, and Theorem~\ref{thm:kmp}(a) for all lengths $\ell\le34$ and Theorem~\ref{thm:kmp}(b) for
+all lengths $\ell=4k+3\le31$; such checks do not replace the proofs. The following questions are natural.
+\begin{enumerate}
+\item A self-contained proof that $\max_{0\le u<F_{4m+1}}R(u)=F_{2m+1}$ with exactly the two
+maximizers $x_m$ and $x_m'$ for $m\ge2$ would make Theorems~\ref{thm:max} and~\ref{thm:argmax}
+independent of \cite{KMP2005}.
+\item Lemma~\ref{lem:fibre} bounds every fibre, integral or not, on a window of odd length. Which
+values of $x\in\Z[\varphi]$ attain the bound for general windows, and what is the maximum on windows of
+even length?
+\item Describe the second largest value of $\mu_m$ and the distribution of the values of $\mu_m$ on
+$[0,C_m]$.
+\item Asymmetric windows $\{a,\dots,b\}$, and analogous questions for other quadratic Pisot units,
+are not treated here.
+\end{enumerate}
+
+\section*{Research provenance and AI contribution}
+The results and proofs of this work were generated and audited by AI systems under human direction. The Owner's
+public research-provenance classification is
+\texttt{HUMAN\_DIRECTED\_AI\_AUTHORED}. The first complete proofs of the upper bound in
+Theorem~\ref{thm:max}, of Theorem~\ref{thm:argmax} and of the transfer identity were
+produced in HGS-E1-002 Request \\#14 by OpenAI model ``gpt-6-astra'' through the DeepSeek
+Harness. This request-level identity is established; identities for other GOLD runs remain
+unresolved. An independent reconstruction and adversarial check was carried out by Claude (Anthropic).
+Literature audits were carried out by an AI system recorded as KIMI; an earlier numerical
+verification was carried out through the DeepSeek API. The present text, including the
+conjugation proof of Theorem~\ref{thm:transfer} and the attainment argument in
+Proposition~\ref{prop:attain}, was drafted by Claude (historical model label
+\texttt{claude-opus-5-5}). These contributor roles do not by themselves determine the
+publication author list or the designation of individual systems as authors.
+
+Independent human mathematical verification has not been completed. No human peer-review
+status, Proof Verification certificate, or priority claim is asserted. The simplified proofs
+in PUB-001 did not receive a separate independent audit. Formal submission metadata are maintained separately from this manuscript.
+
+\bibliographystyle{amsplain}
+\bibliography{references}
+
+\end{document}

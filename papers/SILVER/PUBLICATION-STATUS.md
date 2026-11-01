@@ -1,0 +1,3 @@
+# HGS-SILVER: publication status
+
+Version: 1.0; PDF SHA-256: `51a43030869de1cfa3aacbc8ed0a12790775b6e476ab6ecbf37616c2fc3be7a0`. Owner-approved licence: CC BY 4.0 for rights the licensor can grant. Publication released on GitHub under the Owner authorization. Human proof review has not been completed and is not required by the Owner for archival release. Formal author list, exact platform IDs, submitting/corresponding account, and exact-file release remain pending. See `provenance.md` for contributor/audit roles and the separate preflight author matrix for evidence limits. No priority or human proof-verification certificate is claimed.

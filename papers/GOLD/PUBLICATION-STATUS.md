@@ -1,0 +1,3 @@
+# HGS-GOLD: publication status
+
+Version: 1.0; PDF SHA-256: `e1ebf3feb9c93dcc9de712fa98b53e6d106e1533649edd526e33c611336f2e7e`. Owner-approved licence: CC BY 4.0 for rights the licensor can grant. Publication released on GitHub under the Owner authorization. Human proof review has not been completed and is not required by the Owner for archival release. Formal author list, exact platform IDs, submitting/corresponding account, and exact-file release remain pending. See `provenance.md` for contributor/audit roles and the separate preflight author matrix for evidence limits. No priority or human proof-verification certificate is claimed.
