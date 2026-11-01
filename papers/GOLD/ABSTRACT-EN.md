@@ -13,3 +13,4 @@ the maxima of $R$ over intervals of fixed Zeckendorf length. We obtain
 $\max_{t\in\mathbb{Z}}\mu_m(t)=F_{2m+1}$ for every $m\ge 0$, and we show that for $m\ge 2$ the
 maximum is attained exactly at $t\in\{F_{2m},F_{2m+1},2F_{2m},F_{2m+2}\}$. We compare the transfer
 with a theorem of Dekking and van Loon on natural base-$\varphi$ expansions.
+The results and proofs constitute human-directed, AI-authored mathematical research. They have been checked only by AI-model audits; no independent human mathematical verification has been completed, and novelty has not been established.

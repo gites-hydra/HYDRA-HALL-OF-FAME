@@ -1,3 +1,5 @@
-# HGS-GOLD: publication status
+# HGS-GOLD v1.0.1 — prepared release
 
-Version: 1.0; PDF SHA-256: `e1ebf3feb9c93dcc9de712fa98b53e6d106e1533649edd526e33c611336f2e7e`. Owner-approved licence: CC BY 4.0 for rights the licensor can grant. Publication released on GitHub under the Owner authorization. Human proof review has not been completed and is not required by the Owner for archival release. Formal author list, exact platform IDs, submitting/corresponding account, and exact-file release remain pending. See `provenance.md` for contributor/audit roles and the separate preflight author matrix for evidence limits. No priority or human proof-verification certificate is claimed.
+PDF SHA-256: `6a46afb6b0503e8d6390bd9edaa1ad4f34cebcc43265d77fa402e48237ba325b`. This version adds an AI-authorship and verification statement to the abstract; mathematical results, proofs, and bibliography are unchanged. The TeX escape for Request #14 was corrected. The source and new PDF identify HGS-E1-002 Request #14 as `openai/gpt-6-astra`; the correction does not identify other runs.
+
+This local package is prepared, not evidence of a GitHub release. Independent human mathematical verification has not been completed, and novelty has not been established. The licence is CC BY 4.0 for rights the licensor can grant. See `provenance.md` and `LICENSE-AND-CITATION.md`.
