@@ -1,3 +1,24 @@
-# HGS-SILVER: publication status
+# HGS-SILVER — publication status
 
-Version: 1.0; PDF SHA-256: `51a43030869de1cfa3aacbc8ed0a12790775b6e476ab6ecbf37616c2fc3be7a0`. Owner-approved licence: CC BY 4.0 for rights the licensor can grant. Publication released on GitHub under the Owner authorization. Human proof review has not been completed and is not required by the Owner for archival release. Formal author list, exact platform IDs, submitting/corresponding account, and exact-file release remain pending. See `provenance.md` for contributor/audit roles and the separate preflight author matrix for evidence limits. No priority or human proof-verification certificate is claimed.
+**Version:** 1.0  
+**Canonical PDF SHA-256:** `51a43030869de1cfa3aacbc8ed0a12790775b6e476ab6ecbf37616c2fc3be7a0`
+
+## Current publication status
+
+- **GitHub:** `RELEASED` — [HGS-SILVER-v1.0](https://github.com/gites-hydra/HYDRA-HALL-OF-FAME/releases/tag/HGS-SILVER-v1.0)
+- **Project Diderot:** `PUBLISHED` — [record 4624e972-e436-416e-a69e-fdb7b879e4b2](https://projectdiderot.com/papers/4624e972-e436-416e-a69e-fdb7b879e4b2)
+- **aiXiv:** `UNDER_REVIEW` — [record aixiv.261101.000005](https://aixiv.science/abs/aixiv.261101.000005)
+
+The aiXiv record is submitted and under review; acceptance is not claimed. Platform author metadata is maintained by each publication record. This file does not infer or override formal authorship.
+
+## Historical preparation state
+
+Before release and submission, preparation materials recorded `PUBLICATION=HOLD`, `EXTERNAL_CONTACT=NOT_AUTHORIZED`, and described version 1.0 as a candidate. Those statements were accurate at that time and are retained in the repository's history; they are not the current status.
+
+## Review and claim limits
+
+Independent human mathematical proof review has **not** been completed. The documented model audits are not human peer review. No proof-verification certificate or priority claim is asserted. `POTENTIALLY_NOVEL` is informational only.
+
+## Licence
+
+The Owner-approved licence is CC BY 4.0 for rights the licensor can grant. See [LICENSE-AND-CITATION.md](LICENSE-AND-CITATION.md).

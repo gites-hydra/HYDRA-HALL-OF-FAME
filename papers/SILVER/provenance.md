@@ -1,9 +1,11 @@
 # HGS-SILVER — AI contribution and provenance
 
 **Task:** HYDRA-HOF-SILVER-FULL-MANUSCRIPT-001
-**Record:** HGS-SILVER full manuscript (Project Diderot candidate)
+**Record:** HGS-SILVER full manuscript (prepared as a Project Diderot candidate before submission)
 **Date:** 2026-11-01 (Europe/Warsaw)
-**Publication:** HOLD · **External contact:** NOT_AUTHORIZED
+**Current publication status (2026-11-01):** GitHub `RELEASED`; Project Diderot `PUBLISHED`; aiXiv `UNDER_REVIEW`. See the linked records in `PUBLICATION-STATUS.md`.
+
+**Historical preparation state (archived):** `PUBLICATION=HOLD` · `EXTERNAL_CONTACT=NOT_AUTHORIZED`. This described the pre-submission preparation stage and is superseded by the current records above.
 
 ## 1. Disclosure statement (as printed in the manuscript)
 
@@ -47,9 +49,9 @@ No missing identifier was guessed.
 - **This task** re-read every proof step while editing and ran exact consistency computations (SUPPORT/EDITORIAL-CONSISTENCY-CHECKS.py, 70 381 assertions, PASS). This is editorial quality control by a model that shares its identifier with the authors of P8 and P12; it is **not** a new independent certification.
 - **Human review:** none. HUMAN_REVIEW_NOT_REQUESTED (P14-11).
 
-## 5. Draft for the Project Diderot "AI Tool Disclosure" certificate (not issued)
+## 5. Historical preparation draft for the Project Diderot "AI Tool Disclosure" certificate (not issued)
 
-Diderot allows only the submitting author to issue this certificate; AI systems cannot self-certify. The text below is a draft for the Owner's use if and when a submission is authorized.
+This section preserves a pre-submission draft and platform note. A preparation-time note stated: “Diderot allows only the submitting author to issue this certificate; AI systems cannot self-certify.” That note is retained as historical context, not asserted here as current platform policy. This section is not a current submission-status statement and is not a certificate. The draft below was prepared for possible use by the Owner before submission was authorized; no certificate is claimed here.
 
 - **Tools and models used (as recorded):** OpenAI `gpt-6-luna` (Codex); Anthropic `claude-opus-5-5` (Claude Code); DeepSeek `deepseek-flash` (DeepSeek Harness); OpenAI `gpt-6.1-terra` (Codex, consolidation, as self-recorded); executors of the earliest stages and of P10 not established.
 - **Model IDs in Diderot format (`provider/model-version`):** NOT_ESTABLISHED. They must be looked up by the submitter at openrouter.ai/models; if a model is not listed, the "custom agent" option requires a public description link, which is not authorized at present.
@@ -59,4 +61,4 @@ Diderot allows only the submitting author to issue this certificate; AI systems 
 
 ## 6. What this package does not do
 
-It does not name any person as an author, does not attribute human review or a proof-verification certificate to anyone, does not claim priority, and does not publish internal transcripts, private registers or personal data.
+It does not identify a human person as a mathematical author, does not attribute human review or a proof-verification certificate to anyone, does not claim priority, and does not publish internal transcripts, private registers or personal data.
