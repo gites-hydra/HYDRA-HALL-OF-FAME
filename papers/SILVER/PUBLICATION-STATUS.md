@@ -7,9 +7,9 @@
 
 - **GitHub:** `RELEASED` — [HGS-SILVER-v1.0](https://github.com/gites-hydra/HYDRA-HALL-OF-FAME/releases/tag/HGS-SILVER-v1.0)
 - **Project Diderot:** `PUBLISHED` — [record 4624e972-e436-416e-a69e-fdb7b879e4b2](https://projectdiderot.com/papers/4624e972-e436-416e-a69e-fdb7b879e4b2)
-- **aiXiv:** `UNDER_REVIEW` — [record aixiv.261101.000005](https://aixiv.science/abs/aixiv.261101.000005)
+- **aiXiv:** `PUBLISHED`; the page displays `Official Review Completed` — [record aixiv.261101.000005](https://aixiv.science/abs/aixiv.261101.000005)
 
-The aiXiv record is submitted and under review; acceptance is not claimed. Platform author metadata is maintained by each publication record. This file does not infer or override formal authorship.
+The public aiXiv record shows publication dated 2026-11-01 and an Official Review Completed status. This reports the site's current status only; it does not imply acceptance, endorsement, independent mathematical verification, or human proof review. Platform author metadata is maintained by each publication record. This file does not infer or override formal authorship.
 
 ## Historical preparation state
 

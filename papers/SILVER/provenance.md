@@ -3,7 +3,7 @@
 **Task:** HYDRA-HOF-SILVER-FULL-MANUSCRIPT-001
 **Record:** HGS-SILVER full manuscript (prepared as a Project Diderot candidate before submission)
 **Date:** 2026-11-01 (Europe/Warsaw)
-**Current publication status (2026-11-01):** GitHub `RELEASED`; Project Diderot `PUBLISHED`; aiXiv `UNDER_REVIEW`. See the linked records in `PUBLICATION-STATUS.md`.
+**Current publication status (2026-11-01):** GitHub `RELEASED`; Project Diderot `PUBLISHED`; aiXiv `PUBLISHED` with `OFFICIAL_REVIEW_COMPLETED`. See the linked records in `PUBLICATION-STATUS.md`.
 
 **Historical preparation state (archived):** `PUBLICATION=HOLD` · `EXTERNAL_CONTACT=NOT_AUTHORIZED`. This described the pre-submission preparation stage and is superseded by the current records above.
 
@@ -48,6 +48,7 @@ No missing identifier was guessed.
 - **P14** was a reconciliation and editing stage, not a mathematical audit.
 - **This task** re-read every proof step while editing and ran exact consistency computations (SUPPORT/EDITORIAL-CONSISTENCY-CHECKS.py, 70 381 assertions, PASS). This is editorial quality control by a model that shares its identifier with the authors of P8 and P12; it is **not** a new independent certification.
 - **Human review:** none. HUMAN_REVIEW_NOT_REQUESTED (P14-11).
+- **aiXiv platform review:** the public record currently displays `Official Review Completed` (2026-11-01). This is a platform review status, not human proof verification, endorsement, or a claim of acceptance.
 
 ## 5. Historical preparation draft for the Project Diderot "AI Tool Disclosure" certificate (not issued)
 

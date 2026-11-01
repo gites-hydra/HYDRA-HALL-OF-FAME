@@ -2,11 +2,11 @@
 
 **Work:** *Extremal coefficients of Pell representation polynomials and integer fibres in the silver ratio*  
 **Version:** 1.0  
-**Status:** Released on GitHub; published on Project Diderot; submitted to aiXiv and under review.
+**Status:** Released on GitHub and published on Project Diderot and aiXiv. aiXiv displays “Official Review Completed”; this does not imply acceptance or human proof verification.
 
 - [GitHub release — HGS-SILVER-v1.0](https://github.com/gites-hydra/HYDRA-HALL-OF-FAME/releases/tag/HGS-SILVER-v1.0)
 - [Project Diderot record](https://projectdiderot.com/papers/4624e972-e436-416e-a69e-fdb7b879e4b2)
-- [aiXiv record — under review](https://aixiv.science/abs/aixiv.261101.000005)
+- [aiXiv record — Official Review Completed](https://aixiv.science/abs/aixiv.261101.000005)
 
 Canonical PDF SHA-256: `51a43030869de1cfa3aacbc8ed0a12790775b6e476ab6ecbf37616c2fc3be7a0`.
 
